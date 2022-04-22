@@ -62,7 +62,7 @@ export default {
         },
         breathCycle() {
             // set amount of breaths
-            this.breathCycles = 4;
+            this.breathCycles = 40;
             // activate animation
             this.toggleAnimation();
             // start breath
