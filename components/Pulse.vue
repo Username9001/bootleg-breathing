@@ -58,7 +58,7 @@ export default {
                     this.breathCycles -= 1
                     console.log(this.breathCycles)
                     this.breathTimer()
-                }, 3000);
+                }, 4000);
             } 
             if ( this.breathCycles === 0 ) {
                 this.togglePulse();
@@ -143,7 +143,7 @@ p {
     color: white;
     text-shadow: 0 0 25px black;
     animation-name: pulse;
-    animation-duration: 1.5s;
+    animation-duration: 2s;
     animation-timing-function: ease-out;
     animation-direction: alternate;
     animation-iteration-count: infinite;
