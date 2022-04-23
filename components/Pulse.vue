@@ -19,7 +19,7 @@
                 @click="stopBreathing" 
             >Stop Breathing</b-btn> -->
             <b-btn 
-                :style="[ activePulse || activeExpand || breathCycles === 40  ? 'display: none;': 'display: block;']"
+                :style="[ activePulse || activeExpand || breathInHold === 0  ? 'display: none;': 'display: block;']"
                 @click="oneBreath"
             >One Deep Breath</b-btn>
             <!-- <b-btn @click="reset">Stop</b-btn> -->
@@ -35,8 +35,8 @@ export default {
             activePulse: false,
             activeInhale: false,
             activeExpand: false,
-            breathCycles: undefined,
-            breathInHold: undefined,
+            breathCycles: 0,
+            breathInHold: 0,
         }
     },
     mounted() {
@@ -80,7 +80,7 @@ export default {
         },
         breathCycle() {
             // set amount of breaths
-            this.breathCycles = 2;
+            this.breathCycles = 40;
             // set hold time
             this.breathInHold = 15;
             // activate animation
