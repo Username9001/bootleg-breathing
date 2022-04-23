@@ -8,17 +8,19 @@
         <h1 
             id="timer2"
             class="text-center"
+            :class="[activeExpand ? 'inhale': 'no-display']"
         >{{ breathInHold }}</h1>
         <b-row>
             <b-btn 
+                :style="[ activePulse || activeExpand || breathInHold === 15 ? 'display: none;': 'display: block;']"
                 @click="biggerCycle" 
-                :style="[activePulse ? 'display: none;': 'display: block;']"
             >Rhythmic Breath</b-btn>
             <!-- <b-btn 
                 @click="stopBreathing" 
             >Stop Breathing</b-btn> -->
             <b-btn 
-                @click="oneBreath" 
+                :style="[ activePulse || activeExpand || breathCycles === 40  ? 'display: none;': 'display: block;']"
+                @click="oneBreath"
             >One Deep Breath</b-btn>
             <!-- <b-btn @click="reset">Stop</b-btn> -->
         </b-row>
@@ -31,18 +33,22 @@ export default {
         return {
             isLoaded: false,
             activePulse: false,
+            activeInhale: false,
+            activeExpand: false,
             breathCycles: undefined,
             breathInHold: undefined,
         }
     },
     mounted() {
         this.isLoaded = true;
-        // this.countDownTimer();
     },
     methods: {
         // Animation toggle
-        toggleAnimation() {
+        togglePulse() {
             this.activePulse = !this.activePulse;
+        },
+        toggleExpand() {
+            this.activeExpand = !this.activeExpand;
         },
         // Breathing cycle method
         breathTimer() {
@@ -55,26 +61,30 @@ export default {
                 }, 3000);
             } 
             if ( this.breathCycles === 0 ) {
-                this.toggleAnimation();
+                this.togglePulse();
             }
         },
         breathHoldCountdown() {
             if( this.breathInHold > 0 && this.breathCycles === 0 ) {
+                // breath hold
                 setTimeout(() => {
                     // count down (change to count up)
                     this.breathInHold -= 1
                     console.log(this.breathInHold)
                     this.breathHoldCountdown()
                 }, 1200);
-            } 
+            }
+            if ( this.breathInHold === 0 ) {
+                this.toggleExpand();
+            }
         },
         breathCycle() {
             // set amount of breaths
-            this.breathCycles = 40;
+            this.breathCycles = 2;
             // set hold time
             this.breathInHold = 15;
             // activate animation
-            this.toggleAnimation();
+            this.togglePulse();
             // start breath
             this.breathTimer();
         },
@@ -84,10 +94,12 @@ export default {
         stopBreathing() {
         },
         oneBreath() {
+            // activate animation
+            this.toggleExpand();
             // start hold
             this.breathHoldCountdown();
         },
-    }
+    },
 }
 </script>
 
@@ -137,6 +149,22 @@ p {
     animation-iteration-count: infinite;
     animation-play-state: running;
 }
+.inhale {
+    height: 250px;
+    width: 250px;
+    line-height: 250px;
+    margin: 0 auto;
+    background-color: lightblue;
+    color: white;
+    text-shadow: 0 0 25px black;
+    border-radius: 100%;
+    animation-name: inhale;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-out;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-play-state: running;
+}
 .hold {
     height: 250px;
     width: 250px;
@@ -161,6 +189,16 @@ p {
         transform: scale(2.0);
         border-radius: 400%;
         /* background-color: red; */
+    }
+}
+@keyframes inhale {
+    0% {
+        transform: scale(.1);
+        border-radius: 100%;
+    }
+    100% {
+        transform: scale(1);
+        border-radius: 100%;
     }
 }
 </style>
