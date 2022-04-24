@@ -15,7 +15,7 @@
             <b-btn 
                 :style="[ activePulse || activeExpand || breathInHold === 15 ? 'display: none;': 'display: block;']"
                 @click="biggerCycle" 
-            >Rhythmic Breath</b-btn>
+            >Start</b-btn>
             <!-- <b-btn 
                 @click="toggleBreathHold" 
             >Stop Breathing</b-btn> -->
@@ -87,6 +87,7 @@ export default {
             }
             if ( this.breathInHold === 0 ) {
                 this.toggleExpand();
+                this.breathCycle();
             }
         },
         breathCycle() {
