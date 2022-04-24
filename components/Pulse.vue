@@ -4,6 +4,7 @@
             id="timer"
             class="text-center"
             :class="[activePulse ? 'pulse': 'no-display']"
+            @click="toggleBreathHold" 
         >{{ breathCycles }}</h1>
         <h1 
             id="timer2"
@@ -16,7 +17,7 @@
                 @click="biggerCycle" 
             >Rhythmic Breath</b-btn>
             <!-- <b-btn 
-                @click="stopBreathing" 
+                @click="toggleBreathHold" 
             >Stop Breathing</b-btn> -->
             <b-btn 
                 :style="[ activePulse || activeExpand || breathInHold === 0  ? 'display: none;': 'display: block;']"
@@ -37,6 +38,7 @@ export default {
             activeExpand: false,
             breathCycles: 0,
             breathInHold: 0,
+            breathHold: false,
         }
     },
     mounted() {
@@ -50,9 +52,18 @@ export default {
         toggleExpand() {
             this.activeExpand = !this.activeExpand;
         },
+        toggleBreathHold() {
+            this.breathHold = !this.breathHold;
+        },
         // Breathing cycle method
         breathTimer() {
             if( this.breathCycles > 0 ) {
+                // cancel function
+                if ( this.breathHold === true ) {
+                    this.breathCycles = 0;
+                    this.togglePulse();
+                    return;
+                };
                 setTimeout(() => {
                     // count down (change to count up)
                     this.breathCycles -= 1
@@ -98,6 +109,8 @@ export default {
             this.toggleExpand();
             // start hold
             this.breathHoldCountdown();
+            // toggle back breathHold
+            this.toggleBreathHold();
         },
     },
 }
