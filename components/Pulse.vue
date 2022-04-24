@@ -36,7 +36,7 @@
         <!-- Instructions -->
         <div class="instructions">
             <!-- <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h2> -->
-            <h2 v-if="activePulse">Breath deeply for 30-40 times</h2>
+            <h2 v-if="activePulse">Breath deeply for 30-40 times (click orange to end cycle)</h2>
             <h2 v-if="breathHold">Hold your breath</h2>
             <h2 v-if="activeExpand">Take a deep breath in and hold for 15 seconds</h2>
         </div>
