@@ -92,7 +92,7 @@ export default {
                     this.breathInHold -= 1
                     console.log(this.breathInHold)
                     this.breathHoldCountdown()
-                }, 200);
+                }, 1000);
             }
             if ( this.breathInHold === 0 ) {
                 this.toggleExpand();
@@ -131,6 +131,7 @@ export default {
 body,
 html {
     height: 100%;
+    user-select: none;
 }
 
 body {
