@@ -68,26 +68,26 @@ export default {
         },
         // Breathing cycle method
         breathTimer() {
-            if( this.breathCycles > 0 ) {
+            if( this.breathCycles < 41 ) {
                 // cancel function
                 if ( this.breathHold === true ) {
-                    this.breathCycles = 0;
+                    this.breathCycles = 41;
                     this.togglePulse();
                     return;
                 };
                 setTimeout(() => {
                     // count down (change to count up)
-                    this.breathCycles -= 1
+                    this.breathCycles += 1
                     console.log(this.breathCycles)
                     this.breathTimer()
                 }, 4000);
             } 
-            if ( this.breathCycles === 0 ) {
+            if ( this.breathCycles === 41 ) {
                 this.togglePulse();
             }
         },
         breathHoldCountdown() {
-            if( this.breathInHold > 0 && this.breathCycles === 0 ) {
+            if( this.breathInHold > 0 && this.breathCycles === 41 ) {
                 // breath hold
                 setTimeout(() => {
                     // count down (change to count up)
@@ -103,7 +103,7 @@ export default {
         },
         breathCycle() {
             // set amount of breaths
-            this.breathCycles = 40;
+            this.breathCycles = 1;
             // set hold time
             this.breathInHold = 15;
             // activate animation
