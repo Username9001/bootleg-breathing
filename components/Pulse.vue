@@ -1,38 +1,40 @@
 <template>
   <b-container v-if="isLoaded">
         <!-- Round Counter -->
-        <b-row>
-            <b-col>
-                <h4 class="text-center">Round #{{ roundNumber }}</h4>
-            </b-col>
-        </b-row>
-        <h1 
-            id="timer"
-            class="text-center"
-            :class="[activePulse ? 'pulse': 'no-display']"
-            @click="toggleBreathHold" 
-        >{{ breathCycles }}</h1>
-        <h1 
-            id="timer2"
-            class="text-center"
-            :class="[activeExpand ? 'inhale': 'no-display']"
-        >{{ breathInHold }}</h1>
-        <b-row>
-            <b-btn 
-                :style="[ activePulse || activeExpand || breathInHold === 15 ? 'display: none;': 'display: block;']"
-                @click="biggerCycle" 
-            >Start</b-btn>
-            <!-- <b-btn 
+        <div class="round-counter">
+            <h4 class="text-center">Round #{{ roundNumber }}</h4>
+        </div>
+        <b-container>
+            <h1 
+                id="timer"
+                class="text-center"
+                :class="[activePulse ? 'pulse': 'no-display']"
                 @click="toggleBreathHold" 
-            >Stop Breathing</b-btn> -->
-        </b-row>
-        <b-row>
-            <b-btn 
-                :style="[ activePulse || activeExpand || breathInHold === 0  ? 'display: none;': 'display: block;']"
-                @click="oneBreath"
-            >One Deep Breath</b-btn>
-            <!-- <b-btn @click="reset">Stop</b-btn> -->
-        </b-row>
+            >{{ breathCycles }}</h1>
+            <h1 
+                id="timer2"
+                class="text-center"
+                :class="[activeExpand ? 'inhale': 'no-display']"
+            >{{ breathInHold }}</h1>
+            <div>
+                <b-btn 
+                    class="m-auto"
+                    :style="[ activePulse || activeExpand || breathInHold === 15 ? 'display: none;': 'display: block;']"
+                    @click="biggerCycle" 
+                >Start</b-btn>
+                <b-btn 
+                    class="m-auto"
+                    :style="[ activePulse || activeExpand || breathInHold === 0  ? 'display: none;': 'display: block;']"
+                    @click="oneBreath"
+                >One Deep Breath</b-btn>
+                <!-- <b-btn 
+                    @click="toggleBreathHold" 
+                >Stop Breathing</b-btn> -->
+            </div>
+            <b-row>
+                <!-- <b-btn @click="reset">Stop</b-btn> -->
+            </b-row>
+        </b-container>
   </b-container>
 </template>
 
@@ -148,6 +150,26 @@ p {
 
 .no-display {
     display: none;
+}
+
+/* buttons */
+.btn {
+    font-size: 48px;
+    border: none;
+    border-radius: 100%;
+    height: 240px;
+    width: 240px;
+    background: lightblue;
+}
+.btn:hover {
+    background: lightseagreen;
+}
+
+.round-counter {
+    position: absolute;
+    top: 24px;
+    left: 0;
+    right: 0;
 }
 
 .ball-counter {
