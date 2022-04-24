@@ -1,5 +1,11 @@
 <template>
   <b-container v-if="isLoaded">
+        <!-- Round Counter -->
+        <b-row>
+            <b-col>
+                <h4 class="text-center">Round #{{ roundNumber }}</h4>
+            </b-col>
+        </b-row>
         <h1 
             id="timer"
             class="text-center"
@@ -19,6 +25,8 @@
             <!-- <b-btn 
                 @click="toggleBreathHold" 
             >Stop Breathing</b-btn> -->
+        </b-row>
+        <b-row>
             <b-btn 
                 :style="[ activePulse || activeExpand || breathInHold === 0  ? 'display: none;': 'display: block;']"
                 @click="oneBreath"
@@ -39,6 +47,7 @@ export default {
             breathCycles: 0,
             breathInHold: 0,
             breathHold: false,
+            roundNumber: 0,
         }
     },
     mounted() {
@@ -83,7 +92,7 @@ export default {
                     this.breathInHold -= 1
                     console.log(this.breathInHold)
                     this.breathHoldCountdown()
-                }, 1200);
+                }, 200);
             }
             if ( this.breathInHold === 0 ) {
                 this.toggleExpand();
@@ -99,6 +108,7 @@ export default {
             this.togglePulse();
             // start breath
             this.breathTimer();
+            this.roundNumber++;
         },
         biggerCycle() {
             this.breathCycle();
