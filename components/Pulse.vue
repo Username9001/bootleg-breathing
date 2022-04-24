@@ -161,8 +161,8 @@ p {
     width: 240px;
     background: lightblue;
 }
-.btn:hover {
-    background: lightseagreen;
+.btn:hover, .btn-secondary:active {
+    background: lightseagreen !important;
 }
 
 .round-counter {
@@ -197,9 +197,9 @@ p {
     animation-play-state: running;
 }
 .inhale {
-    height: 250px;
-    width: 250px;
-    line-height: 250px;
+    height: 500px;
+    width: 500px;
+    line-height: 500px;
     margin: 0 auto;
     background-color: lightblue;
     color: white;
