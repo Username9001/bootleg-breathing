@@ -2,7 +2,7 @@
   <div v-if="isLoaded">
         <!-- Round Counter -->
         <div class="round-counter">
-            <h4 class="text-center">Round {{ roundNumber }}</h4>
+            <h1 class="text-center">Round {{ roundNumber }}</h1>
         </div>
         <b-container>
             <h1 
@@ -20,21 +20,26 @@
                 <b-btn 
                     class="m-auto"
                     :style="[ activePulse || activeExpand || breathInHold === 15 ? 'display: none;': 'display: block;']"
-                    @click="biggerCycle" 
-                >Start</b-btn>
+                    @click="breathCycle" 
+                >
+                    <h1>Start</h1>
+                </b-btn>
                 <b-btn 
                     class="m-auto"
                     :style="[ activePulse || activeExpand || breathInHold === 0  ? 'display: none;': 'display: block;']"
                     @click="oneBreath"
-                >One Deep Breath</b-btn>
-                <!-- <b-btn 
-                    @click="toggleBreathHold" 
-                >Stop Breathing</b-btn> -->
+                >
+                    <h1>One Deep Breath</h1>
+                </b-btn>
             </div>
-            <b-row>
-                <!-- <b-btn @click="reset">Stop</b-btn> -->
-            </b-row>
         </b-container>
+        <!-- Instructions -->
+        <div class="instructions">
+            <!-- <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h2> -->
+            <h2 v-if="activePulse">Breath deeply for 30-40 times</h2>
+            <h2 v-if="breathHold">Hold your breath</h2>
+            <h2 v-if="activeExpand">Take a deep breath in and hold for 15 seconds</h2>
+        </div>
   </div>
 </template>
 
@@ -64,6 +69,7 @@ export default {
             this.activeExpand = !this.activeExpand;
         },
         toggleBreathHold() {
+            // cancel animation
             this.breathHold = !this.breathHold;
         },
         // Breathing cycle method
@@ -76,7 +82,7 @@ export default {
                     return;
                 };
                 setTimeout(() => {
-                    // count down (change to count up)
+                    // count up
                     this.breathCycles += 1
                     console.log(this.breathCycles)
                     this.breathTimer()
@@ -112,11 +118,6 @@ export default {
             this.breathTimer();
             this.roundNumber++;
         },
-        biggerCycle() {
-            this.breathCycle();
-        },
-        stopBreathing() {
-        },
         oneBreath() {
             // activate animation
             this.toggleExpand();
@@ -151,6 +152,7 @@ p {
 
 .no-display {
     display: none;
+    animation: none !important;
 }
 
 /* buttons */
@@ -172,6 +174,11 @@ p {
     left: 0;
     right: 0;
 }
+.round-counter h1 {
+    padding: 12px;
+    font-size: 3.2em;
+    font-weight: 700;
+}
 
 .ball-counter {
     display: block;
@@ -188,14 +195,14 @@ p {
     line-height: 250px;
     margin: 0 auto;
     background-color: orange;
-    color: white;
+    color: beige;
     text-shadow: 0 0 25px black;
     animation-name: pulse;
     animation-duration: 2s;
     animation-timing-function: ease-out;
     animation-direction: alternate;
     animation-iteration-count: infinite;
-    animation-play-state: running;
+    /* animation-play-state: running; */
 }
 .inhale {
     height: 500px;
@@ -211,7 +218,7 @@ p {
     animation-timing-function: ease-out;
     animation-direction: alternate;
     animation-iteration-count: 1;
-    animation-play-state: running;
+    /* animation-play-state: running; */
 }
 .hold {
     height: 250px;
@@ -220,6 +227,15 @@ p {
     background-color: green;
     animation: none;
     border-radius: 100%;
+}
+
+.instructions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 48px 24px;
+    text-align: center;
 }
 
 @keyframes pulse {
