@@ -1,8 +1,8 @@
 <template>
-  <b-container v-if="isLoaded">
+  <div v-if="isLoaded">
         <!-- Round Counter -->
         <div class="round-counter">
-            <h4 class="text-center">Round #{{ roundNumber }}</h4>
+            <h4 class="text-center">Round {{ roundNumber }}</h4>
         </div>
         <b-container>
             <h1 
@@ -35,7 +35,7 @@
                 <!-- <b-btn @click="reset">Stop</b-btn> -->
             </b-row>
         </b-container>
-  </b-container>
+  </div>
 </template>
 
 <script>
@@ -134,6 +134,7 @@ body,
 html {
     height: 100%;
     user-select: none;
+    overflow-x: hidden;
 }
 
 body {
