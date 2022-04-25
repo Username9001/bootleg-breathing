@@ -195,7 +195,9 @@ p {
     border-radius: 100%;
     height: 240px;
     width: 240px;
-    background: lightblue;
+    background: rgb(255,255,255);
+    background: radial-gradient(circle, rgba(255,255,255,0) 0%, rgba(0,211,255,0.29173676306460083) 100%, rgba(255,255,255,0) 100%); 
+    text-shadow: 0 0 10px black;
 }
 .btn:hover, .btn-secondary:active {
     background: lightseagreen !important;
@@ -227,9 +229,10 @@ p {
     width: 250px;
     line-height: 250px;
     margin: 0 auto;
-    background-color: orange;
+    background: rgb(255,255,255);
+    background: radial-gradient(circle, rgba(255,255,255,0) 0%, rgba(0,211,255,0.29173676306460083) 100%, rgba(255,255,255,0) 100%); 
     color: beige;
-    text-shadow: 0 0 25px black;
+    text-shadow: 0 0 10px black;
     animation-name: pulse;
     animation-duration: 2s;
     animation-timing-function: ease-out;
@@ -242,7 +245,8 @@ p {
     width: 500px;
     line-height: 500px;
     margin: 0 auto;
-    background-color: lightblue;
+    background: rgb(255,255,255);
+    background: radial-gradient(circle, rgba(255,255,255,0) 0%, rgba(0,211,255,0.29173676306460083) 100%, rgba(255,255,255,0) 100%); 
     color: white;
     text-shadow: 0 0 25px black;
     border-radius: 100%;
