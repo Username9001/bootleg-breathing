@@ -9,7 +9,8 @@
             <h1 
                 v-if="activePulse"
                 id="pulse"
-                class="text-center pulse"
+                class="text-center"
+                :class="[{ 'pulse': activePulse }]"
                 @click="toggleBreathHold" 
             >{{ breathCycles }}</h1>
             <h1 
@@ -36,8 +37,8 @@
         </b-container>
         <!-- Instructions -->
         <div class="instructions">
-            <h4 v-if="activePulse">Breath deeply for 30-40 times (click orange to end cycle)</h4>
-            <h4 v-if="breathHold">Hold your breath</h4>
+            <h4 v-if="activePulse && !breathHold">Breath deeply for 30-40 times (click the circle to end the cycle)</h4>
+            <h4 v-if="breathHold">Let go and hold your breath</h4>
             <h4 v-if="activeExpand">Take a deep breath in and hold for 15 seconds</h4>
         </div>
   </div>
@@ -85,15 +86,15 @@ export default {
         },
         // Breathing cycle method
         breathingLoop() {
+            if ( this.breathHold === true ) {
+                this.togglePulse();
+                this.breathCycles = 41;
+                // stopwatch
+                this.startStopwatch();
+                return;
+            };
             if( this.breathCycles < 41 ) {
                 // cancel function
-                if ( this.breathHold === true ) {
-                    this.togglePulse();
-                    this.breathCycles = 41;
-                    // stopwatch
-                    this.startStopwatch();
-                    return;
-                };
                 setTimeout(() => {
                     // count up
                     this.breathCycles += 1
