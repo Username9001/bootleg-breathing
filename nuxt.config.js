@@ -45,7 +45,12 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
-      lang: 'en'
+      lang: 'en',
+      name: 'bootleg breathing',
+    },
+    icon: true,
+    meta: {
+      theme_color: '#00d4ff',
     }
   },
 
