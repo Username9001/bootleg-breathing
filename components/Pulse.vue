@@ -3,21 +3,22 @@
         <!-- Round Counter -->
         <div class="round-counter">
             <h1 class="text-center">Round {{ roundNumber }}</h1>
+            <p v-if="breathHold === true">{{ formattedElapsedTime }}</p>
         </div>
         <b-container>
             <h1 
-                id="timer"
-                class="text-center"
-                :class="[activePulse ? 'pulse': 'no-display']"
+                v-if="activePulse"
+                id="pulse"
+                class="text-center pulse"
                 @click="toggleBreathHold" 
             >{{ breathCycles }}</h1>
             <h1 
+                v-if="activeExpand"
                 id="timer2"
-                class="text-center"
-                :class="[activeExpand ? 'inhale': 'no-display']"
+                class="text-center inhale"
             >{{ breathInHold }}</h1>
             <div>
-                <b-btn 
+                <b-btn
                     class="m-auto"
                     :style="[ activePulse || activeExpand || breathInHold === 15 ? 'display: none;': 'display: block;']"
                     @click="breathCycle" 
@@ -35,10 +36,9 @@
         </b-container>
         <!-- Instructions -->
         <div class="instructions">
-            <!-- <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h2> -->
-            <h2 v-if="activePulse">Breath deeply for 30-40 times (click orange to end cycle)</h2>
-            <h2 v-if="breathHold">Hold your breath</h2>
-            <h2 v-if="activeExpand">Take a deep breath in and hold for 15 seconds</h2>
+            <h4 v-if="activePulse">Breath deeply for 30-40 times (click orange to end cycle)</h4>
+            <h4 v-if="breathHold">Hold your breath</h4>
+            <h4 v-if="activeExpand">Take a deep breath in and hold for 15 seconds</h4>
         </div>
   </div>
 </template>
@@ -55,6 +55,17 @@ export default {
             breathInHold: 0,
             breathHold: false,
             roundNumber: 0,
+            // stopwatch
+            elapsedTime: 0,
+            timer: undefined,
+        }
+    },
+    computed: {
+        formattedElapsedTime() {
+            const date = new Date(null);
+            date.setSeconds(this.elapsedTime / 1000);
+            const utc = date.toUTCString();
+            return utc.substr(utc.indexOf(":") - 2, 8);
         }
     },
     mounted() {
@@ -73,25 +84,42 @@ export default {
             this.breathHold = !this.breathHold;
         },
         // Breathing cycle method
-        breathTimer() {
+        breathingLoop() {
             if( this.breathCycles < 41 ) {
                 // cancel function
                 if ( this.breathHold === true ) {
-                    this.breathCycles = 41;
                     this.togglePulse();
+                    this.breathCycles = 41;
+                    // stopwatch
+                    this.startStopwatch();
                     return;
                 };
                 setTimeout(() => {
                     // count up
                     this.breathCycles += 1
                     console.log(this.breathCycles)
-                    this.breathTimer()
+                    this.breathingLoop()
                 }, 4000);
             } 
             if ( this.breathCycles === 41 ) {
+                // animation
                 this.togglePulse();
             }
         },
+        // breath hold timer
+        // stopwatch methods
+        startStopwatch() {
+            this.timer = setInterval(() => {
+                this.elapsedTime += 1000;
+        }, 1000);
+        },
+        stopStopwatch() {
+            clearInterval(this.timer);
+        },
+        resetStopwatch() {
+            this.elapsedTime = 0;
+        },
+        // breath in and 15 second hold
         breathHoldCountdown() {
             if( this.breathInHold > 0 && this.breathCycles === 41 ) {
                 // breath hold
@@ -103,6 +131,10 @@ export default {
                 }, 1000);
             }
             if ( this.breathInHold === 0 ) {
+                // reset stopwatch
+                this.stopStopwatch();
+                this.resetStopwatch();
+                // start animation and breath cycle again
                 this.toggleExpand();
                 this.breathCycle();
             }
@@ -115,7 +147,7 @@ export default {
             // activate animation
             this.togglePulse();
             // start breath
-            this.breathTimer();
+            this.breathingLoop();
             this.roundNumber++;
         },
         oneBreath() {
@@ -152,9 +184,10 @@ p {
 
 .no-display {
     display: none;
+}
+.no-animation {
     animation: none !important;
 }
-
 /* buttons */
 .btn {
     font-size: 48px;
@@ -220,39 +253,25 @@ p {
     animation-iteration-count: 1;
     /* animation-play-state: running; */
 }
-.hold {
-    height: 250px;
-    width: 250px;
-    margin: 0 auto;
-    background-color: green;
-    animation: none;
-    border-radius: 100%;
-}
 
 .instructions {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 48px 24px;
+    padding: 24px;
     text-align: center;
 }
 
 @keyframes pulse {
     0% {
         transform: scale(.5);
-        /* background-color: green; */
         border-radius: 100%;
-    }
-
-    50% {
-        /* background-color: orange; */
     }
 
     100% {
         transform: scale(2.0);
         border-radius: 400%;
-        /* background-color: red; */
     }
 }
 @keyframes inhale {
