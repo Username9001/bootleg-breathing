@@ -232,11 +232,11 @@ p {
     margin: 0 auto;
     background: rgb(255,255,255);
     background: radial-gradient(circle, rgba(255,255,255,0) 0%, rgba(0,211,255,0.29173676306460083) 100%, rgba(255,255,255,0) 100%); 
-    color: beige;
+    color: white;
     text-shadow: 0 0 10px black;
     animation-name: pulse;
     animation-duration: 2s;
-    animation-timing-function: ease-out;
+    animation-timing-function: ease-in-out;
     animation-direction: alternate;
     animation-iteration-count: infinite;
     /* animation-play-state: running; */
@@ -253,7 +253,7 @@ p {
     border-radius: 100%;
     animation-name: inhale;
     animation-duration: 1.5s;
-    animation-timing-function: ease-out;
+    animation-timing-function: ease-in-out;
     animation-direction: alternate;
     animation-iteration-count: 1;
     /* animation-play-state: running; */
