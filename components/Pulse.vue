@@ -2,7 +2,7 @@
   <div v-if="isLoaded">
         <!-- Round Counter -->
         <div class="round-counter">
-            <h1 class="text-center">Round {{ roundNumber }}</h1>
+            <h4 class="text-center">Round {{ roundNumber }}</h4>
             <p v-if="breathHold === true">{{ formattedElapsedTime }}</p>
         </div>
         <b-container>
@@ -37,9 +37,9 @@
         </b-container>
         <!-- Instructions -->
         <div class="instructions">
-            <h4 v-if="activePulse && !breathHold">Breath deeply for 30-40 times (click the circle to end the cycle)</h4>
-            <h4 v-if="breathHold">Let go and hold your breath</h4>
-            <h4 v-if="activeExpand">Take a deep breath in and hold for 15 seconds</h4>
+            <h5 v-if="activePulse && !breathHold">Breath deeply for 30-40 times (click the circle to end the cycle)</h5>
+            <h5 v-if="breathHold && !activeExpand">Let go and hold your breath</h5>
+            <h5 v-if="activeExpand">Take a deep breath in and hold for 15 seconds</h5>
         </div>
   </div>
 </template>
@@ -66,7 +66,7 @@ export default {
             const date = new Date(null);
             date.setSeconds(this.elapsedTime / 1000);
             const utc = date.toUTCString();
-            return utc.substr(utc.indexOf(":") - 2, 8);
+            return utc.substr(utc.indexOf(":") + 1, 6);
         }
     },
     mounted() {
