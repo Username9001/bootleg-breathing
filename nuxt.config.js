@@ -48,7 +48,10 @@ export default {
       lang: 'en',
       name: 'bootleg breathing',
     },
-    icon: true,
+    icon: {
+      source: './static/icon.png',
+      fileName: 'icon.png',
+    },
     meta: {
       theme_color: '#00d4ff',
     }
