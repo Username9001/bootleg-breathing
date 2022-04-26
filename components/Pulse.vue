@@ -21,7 +21,7 @@
             <div>
                 <b-btn
                     class="m-auto"
-                    :style="[ activePulse || activeExpand || breathInHold === 15 ? 'display: none;': 'display: block;']"
+                    :style="[ activePulse || activeExpand || breathInHold === 15 || roundNumber > 0 ? 'display: none;': 'display: block;']"
                     @click="breathCycle" 
                 >
                     <h1>Start</h1>
@@ -105,6 +105,8 @@ export default {
             if ( this.breathCycles === 41 ) {
                 // animation
                 this.togglePulse();
+                this.breathHold = true;
+                this.startStopwatch();
             }
         },
         // breath hold timer
@@ -135,9 +137,13 @@ export default {
                 // reset stopwatch
                 this.stopStopwatch();
                 this.resetStopwatch();
+                // give some extra time between stages
+                setTimeout(() => {
+                    console.log('starting next round...');
+                    this.breathCycle();
+                }, 1500);
                 // start animation and breath cycle again
                 this.toggleExpand();
-                this.breathCycle();
             }
         },
         breathCycle() {
@@ -270,7 +276,7 @@ p {
 
 @keyframes pulse {
     0% {
-        transform: scale(.5);
+        transform: scale(.1);
         border-radius: 100%;
     }
 
