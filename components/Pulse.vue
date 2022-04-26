@@ -136,12 +136,12 @@ export default {
         },
         // Breathing cycle method
         breathingLoop() {
-            if ( this.breathCycles === 11 ) {
+            if ( this.breathCycles === 41 ) {
                 // go to next phase
                 this.breathHoldPhase();
                 return;
             }
-            if( this.breathCycles < 11 ) {
+            if( this.breathCycles < 41 ) {
                 // cancel function
                 setTimeout(() => {
                     // count up
