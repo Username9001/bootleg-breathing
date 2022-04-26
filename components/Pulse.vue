@@ -88,52 +88,60 @@ export default {
     methods: {
         // go through phases
         breathCyclePhase() {
-            // adjust round object
-            this.round.phase = this.phases[0];
-            // set amount of breaths
-            this.breathCycles = 1;
-            // start breath
-            this.breathingLoop();
-            // set round number
-            this.round.number++;
+            // check if not already running
+            if ( this.round.phase !== this.phases[0]) {
+                // adjust round object
+                this.round.phase = this.phases[0];
+                // set amount of breaths
+                this.breathCycles = 1;
+                // start breath
+                this.breathingLoop();
+                // set round number
+                this.round.number++;
+            }
         },
         breathHoldPhase() {
-            // adjust round object
-            this.round.phase = this.phases[1];
-            // start stopwatch
-            this.startStopwatch();
+            // check if not already running
+            if ( this.round.phase !== this.phases[1]) {
+                // adjust round object
+                this.round.phase = this.phases[1];
+                // start stopwatch
+                this.startStopwatch();
+            }
         },
         deepBreathPhase() {
-            // reset stopwatch
-            this.stopStopwatch();
-            this.resetStopwatch();
-            // adjust round object
-            this.round.phase = this.phases[2];
-            // set hold time
-            this.deepBreathTime = 15;
-            // start hold
-            this.deepBreathCountdown();
+            // check if not already running
+            if ( this.round.phase !== this.phases[2]) {
+                // adjust round object
+                this.round.phase = this.phases[2];
+                // set hold time
+                this.deepBreathTime = 15;
+                // start hold
+                this.deepBreathCountdown();
+            }
         },
         smallPausePhase() {
-            // adjust round object
-            this.round.phase = this.phases[3];
-            // start a new round
-            setTimeout(() => {
-                this.breathCyclePhase();
-            }, 500);
+            // check if not already running
+            if ( this.round.phase !== this.phases[3]) {
+                // adjust round object
+                this.round.phase = this.phases[3];
+                // reset stopwatch
+                this.stopStopwatch();
+                this.resetStopwatch();
+                // start a new round
+                setTimeout(() => {
+                    this.breathCyclePhase();
+                }, 500);
+            }
         },
         // Breathing cycle method
         breathingLoop() {
-            if ( this.round.phase === 'breathHold') {
+            if ( this.breathCycles === 11 ) {
                 // go to next phase
-                this.breathCycles = 41;
-            };
-            if ( this.breathCycles === 41 ) {
-                // go to next phase
-                this.round.phase = 'breathHold';
+                this.breathHoldPhase();
                 return;
             }
-            if( this.breathCycles < 41 ) {
+            if( this.breathCycles < 11 ) {
                 // cancel function
                 setTimeout(() => {
                     // count up
@@ -156,6 +164,11 @@ export default {
         },
         // Deep breath method
         deepBreathCountdown() {
+            if ( this.deepBreathTime === 0 ) {
+                // go to next phase/round
+                this.smallPausePhase();
+                return;
+            }
             if( this.round.phase === 'deepBreath' ) {
                 // breath hold
                 setTimeout(() => {
@@ -163,11 +176,6 @@ export default {
                     this.deepBreathTime -= 1
                     this.deepBreathCountdown()
                 }, 1000);
-            }
-            if ( this.deepBreathTime === 0 ) {
-                // go to next phase/round
-                this.round.phase = 'smallPause';
-                this.smallPausePhase();
             }
         },
     },
