@@ -6,17 +6,6 @@
             <p v-if="round.phase === 'breathHold'">{{ formattedElapsedTime }}</p>
         </div>
         <b-container>
-            <div 
-                v-if="round.phase === 'breathCycle'"
-                id="pulse"
-                class="text-center pulse main-button"
-                @click="breathHoldPhase()" 
-            >{{ breathCycles }}</div>
-            <div 
-                v-if="round.phase === 'deepBreath'"
-                id="timer2"
-                class="text-center inhale main-button"
-            >{{ deepBreathTime }}</div>
             <div
                 v-if="round.number === 0"
                 class="m-auto main-button"
@@ -25,12 +14,23 @@
                 <h1>Start</h1>
             </div>
             <div 
+                v-if="round.phase === 'breathCycle'"
+                id="pulse"
+                class="text-center pulse main-button"
+                @click="breathHoldPhase()" 
+            >{{ breathCycles }}</div>
+            <div 
                 v-if="round.phase === 'breathHold'"
                 class="m-auto main-button"
                 @click="deepBreathPhase()"
             >
                 <h1>Breath In</h1>
             </div>
+            <div 
+                v-if="round.phase === 'deepBreath'"
+                id="timer2"
+                class="text-center inhale main-button"
+            >{{ deepBreathTime }}</div>
         </b-container>
         <!-- Instructions -->
         <div class="instructions">
@@ -100,8 +100,13 @@ export default {
         breathHoldPhase() {
             // adjust round object
             this.round.phase = this.phases[1];
+            // start stopwatch
+            this.startStopwatch();
         },
         deepBreathPhase() {
+            // reset stopwatch
+            this.stopStopwatch();
+            this.resetStopwatch();
             // adjust round object
             this.round.phase = this.phases[2];
             // set hold time
@@ -115,37 +120,33 @@ export default {
             // start a new round
             setTimeout(() => {
                 this.breathCyclePhase();
-            }, 1500);
+            }, 500);
         },
         // Breathing cycle method
         breathingLoop() {
             if ( this.round.phase === 'breathHold') {
                 // go to next phase
                 this.breathCycles = 41;
-                // stopwatch
-                this.startStopwatch();
-                return;
             };
+            if ( this.breathCycles === 41 ) {
+                // go to next phase
+                this.round.phase = 'breathHold';
+                return;
+            }
             if( this.breathCycles < 41 ) {
                 // cancel function
                 setTimeout(() => {
                     // count up
                     this.breathCycles += 1
-                    console.log(this.breathCycles)
                     this.breathingLoop()
                 }, 4000);
             } 
-            if ( this.breathCycles === 41 ) {
-                // go to next phase
-                this.round.phase = 'breathHold';
-                this.startStopwatch();
-            }
         },
         // Breath hold cycle methods (stopwatch methods)
         startStopwatch() {
             this.timer = setInterval(() => {
                 this.elapsedTime += 1000;
-        }, 1000);
+            }, 1000);
         },
         stopStopwatch() {
             clearInterval(this.timer);
@@ -164,15 +165,9 @@ export default {
                 }, 1000);
             }
             if ( this.deepBreathTime === 0 ) {
-                // reset stopwatch
-                this.stopStopwatch();
-                this.resetStopwatch();
                 // go to next phase/round
                 this.round.phase = 'smallPause';
-                // give some extra time between stages
-                setTimeout(() => {
-                    this.breathCyclePhase();
-                }, 1500);
+                this.smallPausePhase();
             }
         },
     },
