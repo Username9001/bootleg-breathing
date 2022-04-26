@@ -46,24 +46,20 @@
 export default {
     data() {
         return {
+            // page load
             isLoaded: false,
-            activePulse: false,
-            activeInhale: false,
-            activeExpand: false,
+            // breath variables
             breathCycles: 0,
             deepBreathTime: 0,
-            breathHold: false,
             // stopwatch
             elapsedTime: 0,
             timer: undefined,
-            // define everything happening in a round within an object
+            // round object
             round: {
                 // track round number
                 number: 0,
                 // track phase
                 phase: undefined,
-                // breath counter
-
             },
             // how the round is made up
             phases: [
@@ -111,7 +107,7 @@ export default {
             // set hold time
             this.deepBreathTime = 15;
             // start hold
-            this.breathHoldCountdown();
+            this.deepBreathCountdown();
         },
         smallPausePhase() {
             // adjust round object
@@ -124,7 +120,7 @@ export default {
         // Breathing cycle method
         breathingLoop() {
             if ( this.round.phase === 'breathHold') {
-                // this.togglePulse();
+                // go to next phase
                 this.breathCycles = 41;
                 // stopwatch
                 this.startStopwatch();
@@ -140,14 +136,12 @@ export default {
                 }, 4000);
             } 
             if ( this.breathCycles === 41 ) {
-                // animation
-                // this.togglePulse();
+                // go to next phase
                 this.round.phase = 'breathHold';
                 this.startStopwatch();
             }
         },
-        // breath hold timer
-        // stopwatch methods
+        // Breath hold cycle methods (stopwatch methods)
         startStopwatch() {
             this.timer = setInterval(() => {
                 this.elapsedTime += 1000;
@@ -159,15 +153,14 @@ export default {
         resetStopwatch() {
             this.elapsedTime = 0;
         },
-        // breath in and 15 second hold
-        breathHoldCountdown() {
+        // Deep breath method
+        deepBreathCountdown() {
             if( this.round.phase === 'deepBreath' ) {
                 // breath hold
                 setTimeout(() => {
                     // count down (change to count up)
                     this.deepBreathTime -= 1
-                    console.log(this.deepBreathTime)
-                    this.breathHoldCountdown()
+                    this.deepBreathCountdown()
                 }, 1000);
             }
             if ( this.deepBreathTime === 0 ) {
@@ -175,23 +168,12 @@ export default {
                 this.stopStopwatch();
                 this.resetStopwatch();
                 // go to next phase/round
-                console.log('starting next round...');
                 this.round.phase = 'smallPause';
                 // give some extra time between stages
                 setTimeout(() => {
                     this.breathCyclePhase();
                 }, 1500);
-                // start animation and breath cycle again
-                this.toggleExpand();
             }
-        },
-        oneBreath() {
-            // activate animation
-            this.toggleExpand();
-            // start hold
-            this.breathHoldCountdown();
-            // toggle back breathHold
-            this.toggleBreathHold();
         },
     },
 }
