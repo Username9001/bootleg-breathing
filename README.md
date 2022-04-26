@@ -1,3 +1,4 @@
 # bootleg-breathing
 
-Currently MVP
+## Planning
+- 
