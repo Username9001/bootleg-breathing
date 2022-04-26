@@ -11,7 +11,7 @@
                 id="pulse"
                 class="text-center"
                 :class="[{ 'pulse': activePulse }]"
-                @click="toggleBreathHold" 
+                @click="stopBreathCycle" 
             >{{ breathCycles }}</h1>
             <h1 
                 v-if="activeExpand"
@@ -81,8 +81,12 @@ export default {
             this.activeExpand = !this.activeExpand;
         },
         toggleBreathHold() {
-            // cancel animation
+            // toggle animation
             this.breathHold = !this.breathHold;
+        },
+        stopBreathCycle() {
+            // cancel animation
+            this.breathHold = true;
         },
         // Breathing cycle method
         breathingLoop() {
@@ -281,7 +285,7 @@ p {
     }
 
     100% {
-        transform: scale(2.0);
+        transform: scale(1.5);
         border-radius: 400%;
     }
 }
