@@ -29,7 +29,7 @@
                 class="m-auto main-button"
                 @click="deepBreathPhase()"
             >
-                <h1>One Deep Breath</h1>
+                <h1>Breath In</h1>
             </div>
         </b-container>
         <!-- Instructions -->
