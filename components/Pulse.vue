@@ -1,9 +1,5 @@
 <template>
   <div v-if="isLoaded">
-        <!-- Dark/Light mode toggle -->
-        <!-- <div>
-            <h1>Color mode: {{ $colorMode.value }}</h1>
-        </div> -->
         <!-- Round Counter -->
         <div class="round-counter">
             <h4 class="text-center">Round {{ round.number }}</h4>
@@ -43,9 +39,6 @@
             <h5 v-if="round.phase === 'deepBreath'">Take a deep breath in and hold for 15 seconds</h5>
             <h5 v-if="round.phase === 'smallPause'">Small Pause</h5>
         </div>
-        <!-- Audio (hidden) -->
-        <!-- <b-btn @click="playBreathInSound()">Breath In</b-btn>
-        <b-btn @click="playBreathOutSound()">Breath Out</b-btn> -->
   </div>
 </template>
 
@@ -100,17 +93,14 @@ export default {
     },
     methods: {
         // sounds
-        playBreathInSound() {
-            const inSound = new Audio(this.breathInSound);
-            if(this.round.phase === 'breathCycle') {
-                inSound.play();
-            }
-        },
-        playBreathOutSound() {
-            const outSound = new Audio(this.breathOutSound);
-            if(this.round.phase === 'breathCycle') {
-                outSound.play();
-            }
+        playSounds() {
+            const inSound = new Audio(this.breathInSound)
+            const outSound = new Audio(this.breathOutSound)
+
+            inSound.play()
+            setTimeout(() => {
+                outSound.play()
+            }, 2000);
         },
         // go through phases
         breathCyclePhase() {
@@ -162,17 +152,15 @@ export default {
         },
         // Breathing cycle method
         breathingLoop() {
-            // play sound
-            this.playBreathInSound()
-            setTimeout(() => {
-                this.playBreathOutSound()
-            }, 2000);
+            // max breathing count
             if ( this.breathCycles === 41 ) {
                 // go to next phase
                 this.breathHoldPhase();
                 return;
             }
-            if( this.breathCycles < 41 ) {
+            if( this.breathCycles < 41 && this.round.phase === this.phases[0] ) {
+                // play sound
+                this.playSounds()
                 // cancel function
                 setTimeout(() => {
                     // count up
