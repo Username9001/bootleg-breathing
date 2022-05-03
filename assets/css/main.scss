@@ -1,3 +1,15 @@
+// variables
+
+// components
+$btn-color: radial-gradient(circle, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5074230375744048) 0%, rgba(255,166,0,0.9528011888349089) 76%);
+// dark-mode
+$bg-dark: #2d2d2d;
+$text-dark: #fff;
+// light-mode
+$bg-light: #fff;
+$text-light: #2d2d2d;
+
+
 body,
 html {
     height: 100%;
@@ -24,15 +36,24 @@ p {
     animation: none !important;
 }
 
-/* buttons */
+.round-counter {
+    position: absolute;
+    top: 24px;
+    left: 0;
+    right: 0;
+    h1 {
+        padding: 12px;
+        font-weight: 700;
+    }
+}
+
 .main-button {
     border-radius: 100%;
     height: 250px;
     width: 250px;
     line-height: 250px;
     margin: 0 auto;
-    background: rgb(255,255,255);
-    background: radial-gradient(circle, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5074230375744048) 0%, rgba(255,166,0,0.9528011888349089) 76%);
+    background: $btn-color;
     font-size: 48px;
     color: white;
     text-shadow: 0 0 10px black;
@@ -43,19 +64,7 @@ p {
     }
 }
 .main-button:hover, .main-button:active, .main-button:focus, .main-button-secondary:active, .main-button-secondary:focus, .main-button-secondary:hover, .main-button-secondary:visited  {
-    background: rgb(255,255,255) !important;
-    background: radial-gradient(circle, rgba(255,255,255,0) 0%, rgba(0,211,255,0.29173676306460083) 100%, rgba(255,255,255,0) 100%) !important;
-}
-
-.round-counter {
-    position: absolute;
-    top: 24px;
-    left: 0;
-    right: 0;
-    h1 {
-        padding: 12px;
-        font-weight: 700;
-    }
+    background: $btn-color !important;
 }
 
 .pulse {
@@ -112,13 +121,13 @@ p {
 // dark mode
 @media ( prefers-color-scheme: dark ) {
     body {
-        background: #2d2d2d;
-        color: white;
+        background: $bg-dark;
+        color: $text-dark;
     }
 }
 @media ( prefers-color-scheme: light ) {
     body {
-        background: white;
-        color: #2d2d2d;
+        background: $bg-light;
+        color: $text-light;
     }
 }

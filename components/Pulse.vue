@@ -147,7 +147,7 @@ export default {
                 // start a new round
                 setTimeout(() => {
                     this.breathCyclePhase();
-                }, 500);
+                }, 1500);
             }
         },
         // Breathing cycle method
