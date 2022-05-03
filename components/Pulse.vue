@@ -1,5 +1,9 @@
 <template>
   <div v-if="isLoaded">
+        <!-- Dark/Light mode toggle -->
+        <!-- <div>
+            <h1>Color mode: {{ $colorMode.value }}</h1>
+        </div> -->
         <!-- Round Counter -->
         <div class="round-counter">
             <h4 class="text-center">Round {{ round.number }}</h4>
@@ -182,6 +186,6 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 
 </style>

@@ -32,7 +32,7 @@ p {
     line-height: 250px;
     margin: 0 auto;
     background: rgb(255,255,255);
-    background: radial-gradient(circle, rgba(255,255,255,0) 0%, rgba(0,211,255,0.29173676306460083) 100%, rgba(255,255,255,0) 100%); 
+    background: radial-gradient(circle, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5074230375744048) 0%, rgba(255,166,0,0.9528011888349089) 76%);
     font-size: 48px;
     color: white;
     text-shadow: 0 0 10px black;
@@ -107,5 +107,18 @@ p {
     100% {
         transform: scale(1);
         border-radius: 100%;
+    }
+}
+// dark mode
+@media ( prefers-color-scheme: dark ) {
+    body {
+        background: #2d2d2d;
+        color: white;
+    }
+}
+@media ( prefers-color-scheme: light ) {
+    body {
+        background: white;
+        color: #2d2d2d;
     }
 }
