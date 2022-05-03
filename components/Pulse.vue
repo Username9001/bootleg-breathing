@@ -43,13 +43,22 @@
             <h5 v-if="round.phase === 'deepBreath'">Take a deep breath in and hold for 15 seconds</h5>
             <h5 v-if="round.phase === 'smallPause'">Small Pause</h5>
         </div>
+        <!-- Audio (hidden) -->
+        <!-- <b-btn @click="playBreathInSound()">Breath In</b-btn>
+        <b-btn @click="playBreathOutSound()">Breath Out</b-btn> -->
   </div>
 </template>
 
 <script>
+const breathInSound = require("@/assets/sounds/BreathIn.mp3").default;
+const breathOutSound = require("@/assets/sounds/BreathOut.mp3").default;
+
 export default {
     data() {
         return {
+            // audio
+            breathInSound,
+            breathOutSound,
             // page load
             isLoaded: false,
             // breath variables
@@ -90,6 +99,19 @@ export default {
         this.isLoaded = true;
     },
     methods: {
+        // sounds
+        playBreathInSound() {
+            const inSound = new Audio(this.breathInSound);
+            if(this.round.phase === 'breathCycle') {
+                inSound.play();
+            }
+        },
+        playBreathOutSound() {
+            const outSound = new Audio(this.breathOutSound);
+            if(this.round.phase === 'breathCycle') {
+                outSound.play();
+            }
+        },
         // go through phases
         breathCyclePhase() {
             // check if not already running
@@ -140,6 +162,11 @@ export default {
         },
         // Breathing cycle method
         breathingLoop() {
+            // play sound
+            this.playBreathInSound()
+            setTimeout(() => {
+                this.playBreathOutSound()
+            }, 2000);
             if ( this.breathCycles === 41 ) {
                 // go to next phase
                 this.breathHoldPhase();
