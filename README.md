@@ -21,6 +21,6 @@
  - '10 more'
  - 'last one'
  - 'and let it go'
- - 'take a deep breath and hold for 15 seconds'
+ - 'take a deep breath in and hold for 15 seconds'
  - '3, 2, 1, and back into that rhythm'
  - chimes (for during breathhold)

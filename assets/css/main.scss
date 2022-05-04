@@ -37,9 +37,20 @@ p {
     animation: none !important;
 }
 
-.round-counter {
+.reset {
     position: absolute;
     top: 24px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    .btn {
+        display: block;
+    }
+}
+
+.round-counter {
+    position: absolute;
+    top: 96px;
     left: 0;
     right: 0;
     h1 {

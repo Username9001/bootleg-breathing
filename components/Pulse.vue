@@ -1,5 +1,11 @@
 <template>
   <div v-if="isLoaded">
+      <!-- Reset button -->
+      <div class="reset">
+        <b-btn class="m-auto" @click="finishSet()">
+            Click to reset
+        </b-btn>
+      </div>
         <!-- Round Counter -->
         <div class="round-counter">
             <h4 class="text-center">Round {{ round.number }}</h4>
@@ -93,6 +99,13 @@ export default {
         this.isLoaded = true;
     },
     methods: {
+        // reset
+        finishSet() {
+            this.round.number = 0;
+            this.round.phase = undefined;
+            this.stopStopwatch();
+            this.resetStopwatch();
+        },
         // sounds
         playSounds() {
             const inSound = new Audio(this.breathInSound)
