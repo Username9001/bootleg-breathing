@@ -57,6 +57,7 @@ export default {
             // breath variables
             breathCycles: 0,
             deepBreathTime: 0,
+            breathTime: 3500,
             // stopwatch
             elapsedTime: 0,
             timer: undefined,
@@ -100,7 +101,7 @@ export default {
             inSound.play()
             setTimeout(() => {
                 outSound.play()
-            }, 2000);
+            }, this.breathTime / 2 );
         },
         // go through phases
         breathCyclePhase() {
@@ -166,7 +167,7 @@ export default {
                     // count up
                     this.breathCycles += 1
                     this.breathingLoop()
-                }, 4000);
+                }, this.breathTime);
             } 
         },
         // Breath hold cycle methods (stopwatch methods)
