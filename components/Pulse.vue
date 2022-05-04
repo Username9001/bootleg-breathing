@@ -36,14 +36,15 @@
                 v-if="round.phase === 'deepBreath'"
                 id="timer2"
                 class="text-center inhale main-button"
+                @click="skipDeepBreath()"
             >{{ deepBreathTime }}</div>
         </b-container>
         <!-- Instructions -->
         <div class="instructions">
             <h5 v-if="round.phase === 'breathCycle'">Breath deeply for 30-40 times (click the circle to end the cycle)</h5>
             <h5 v-if="round.phase === 'breathHold'">Let go and hold your breath</h5>
-            <h5 v-if="round.phase === 'deepBreath'">Take a deep breath in and hold for 15 seconds</h5>
-            <h5 v-if="round.phase === 'smallPause'">Small Pause</h5>
+            <h5 v-if="round.phase === 'deepBreath'">Take a deep breath in and hold for 15 seconds (click circle to skip)</h5>
+            <h5 v-if="round.phase === 'smallPause'">Get back into that rhythm</h5>
         </div>
   </div>
 </template>
@@ -117,6 +118,7 @@ export default {
             }, this.breathTime / 2 );
         },
         // go through phases
+        // breath cycle phase
         breathCyclePhase() {
             // check if not already running
             if ( this.round.phase !== this.phases[0]) {
@@ -130,6 +132,7 @@ export default {
                 this.round.number++;
             }
         },
+        // breath hold phase
         breathHoldPhase() {
             // check if not already running
             if ( this.round.phase !== this.phases[1]) {
@@ -139,6 +142,7 @@ export default {
                 this.startStopwatch();
             }
         },
+        // deep breath in phase
         deepBreathPhase() {
             // check if not already running
             if ( this.round.phase !== this.phases[2]) {
@@ -150,6 +154,10 @@ export default {
                 this.deepBreathCountdown();
             }
         },
+        skipDeepBreath() {
+            this.smallPausePhase();
+        },
+        // small pause between cycles
         smallPausePhase() {
             // check if not already running
             if ( this.round.phase !== this.phases[3]) {
