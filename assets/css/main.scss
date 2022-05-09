@@ -74,6 +74,9 @@ p {
         margin: 0 auto;
         text-align: center;
     }
+    &:focus {
+        display: none;
+    }
 }
 .main-button:hover, .main-button:active, .main-button:focus, .main-button-secondary:active, .main-button-secondary:focus, .main-button-secondary:hover, .main-button-secondary:visited  {
     background: $btn-color !important;

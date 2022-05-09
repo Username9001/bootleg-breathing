@@ -5,6 +5,9 @@
         <b-btn class="m-auto" @click="finishSet()">
             Click to reset
         </b-btn>
+        <b-btn class="sound-toggle m-auto" @click="toggleSound()">
+            Toggle breath sound
+        </b-btn>
       </div>
         <!-- Round Counter -->
         <div class="round-counter">
@@ -50,13 +53,15 @@
 </template>
 
 <script>
-const breathInSound = require("@/assets/sounds/BreathIn.mp3").default;
-const breathOutSound = require("@/assets/sounds/BreathOut.mp3").default;
+const breathInSound = require("@/assets/sounds/BreathInSound.mp3").default;
+const breathOutSound = require("@/assets/sounds/BreathOutSound.mp3").default;
 
 export default {
     data() {
         return {
+            activeLoop: false,
             // audio
+            soundActive: true,
             breathInSound,
             breathOutSound,
             // page load
@@ -84,7 +89,9 @@ export default {
                 // deep breath in, and hold for 15s
                 'deepBreath',
                 // small pause before starting next round
-                'smallPause'
+                'smallPause',
+                // end
+                'end'
             ],
         }
     },
@@ -103,43 +110,63 @@ export default {
         // reset
         finishSet() {
             this.round.number = 0;
-            this.round.phase = undefined;
+            this.round.phase = this.phases[4];
             this.stopStopwatch();
             this.resetStopwatch();
+            console.log("set finished", this.round.phase);
         },
         // sounds
+        toggleSound() {
+            this.soundActive = !this.soundActive;
+            console.log(this.soundActive);
+        },
         playSounds() {
-            const inSound = new Audio(this.breathInSound)
-            const outSound = new Audio(this.breathOutSound)
-
-            inSound.play()
-            setTimeout(() => {
-                outSound.play()
-            }, this.breathTime / 2 );
+            if (this.round.phase === this.phases[0] && this.soundActive === true ) {
+                const inSound = new Audio(this.breathInSound)
+                const outSound = new Audio(this.breathOutSound)
+                inSound.play()
+                setTimeout(() => {
+                    if (this.round.phase === this.phases[0]) {
+                        outSound.play()
+                    }
+                }, this.breathTime / 2 );
+            } 
         },
         // go through phases
         // breath cycle phase
         breathCyclePhase() {
             // check if not already running
-            if ( this.round.phase !== this.phases[0]) {
-                // adjust round object
-                this.round.phase = this.phases[0];
-                // set amount of breaths
-                this.breathCycles = 1;
-                // start breath
-                this.breathingLoop();
-                // set round number
-                this.round.number++;
-            }
+                // All the taxing stuff you do
+                if ( this.round.phase !== this.phases[0]) {
+                    // adjust round object
+                    this.round.phase = this.phases[0];
+                    // set amount of breaths
+                    this.breathCycles = 1;
+                    // set round number
+                    this.round.number++;
+                    // start loop
+                    this.activeLoop = true;
+                    setTimeout( () => {
+                        // start breath
+                        this.breathingLoop();
+                        console.log('breath cycle phase');
+                    }, 200 );
+                }
         },
         // breath hold phase
         breathHoldPhase() {
             // check if not already running
             if ( this.round.phase !== this.phases[1]) {
+                // end breath loop
+                this.activeLoop = false;
                 // adjust round object
                 this.round.phase = this.phases[1];
                 // start stopwatch
                 this.startStopwatch();
+                // console
+                setTimeout( () => {
+                    console.log('breath hold phase');
+                }, 200 );
             }
         },
         // deep breath in phase
@@ -152,9 +179,15 @@ export default {
                 this.deepBreathTime = 15;
                 // start hold
                 this.deepBreathCountdown();
+                // console
+                setTimeout( () => {
+                    console.log('deep breath phase');
+                }, 200 );
             }
         },
         skipDeepBreath() {
+            console.log('skipping deep breath phase');
+            this.deepBreathTime = 0;
             this.smallPausePhase();
         },
         // small pause between cycles
@@ -175,11 +208,12 @@ export default {
         // Breathing cycle method
         breathingLoop() {
             // max breathing count
-            if ( this.breathCycles === 41 ) {
+            if ( this.breathCycles === 41 || this.activeLoop === false ) {
                 // go to next phase
                 this.breathHoldPhase();
                 return;
             }
+            // main loop
             if( this.breathCycles < 41 && this.round.phase === this.phases[0] ) {
                 // play sound
                 this.playSounds()
@@ -188,6 +222,10 @@ export default {
                     // count up
                     this.breathCycles += 1
                     this.breathingLoop()
+                    // console
+                    setTimeout( () => {
+                        console.log('breathing loop', this.breathCycles);
+                    }, 200 );
                 }, this.breathTime);
             } 
         },
@@ -202,6 +240,7 @@ export default {
         },
         resetStopwatch() {
             this.elapsedTime = 0;
+            this.timer = undefined;
         },
         // Deep breath method
         deepBreathCountdown() {
