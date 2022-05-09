@@ -1,18 +1,28 @@
 <template>
   <div v-if="isLoaded">
       <!-- Reset button -->
-      <div class="reset">
+      <div class="option-buttons">
         <b-btn class="m-auto" @click="finishSet()">
-            Click to reset
+            Reset
         </b-btn>
-        <b-btn class="sound-toggle m-auto" @click="toggleSound()">
-            Toggle breath sound
+        <hr>
+        <b-btn class="m-auto" @click="toggleSound()">
+            Breathing sound
         </b-btn>
+        <div v-if="soundActive">
+            Sounds active
+        </div>
+        <hr>
+        <b-btn class="m-auto" @click="toggleChimes()">
+            Chime sounds
+        </b-btn>
+        <div v-if="chimesActive">
+            Chimes active
+        </div>
       </div>
         <!-- Round Counter -->
         <div class="round-counter">
             <h4 class="text-center">Round {{ round.number }}</h4>
-            {{ elapsedTime }}
             <p v-if="round.phase === 'breathHold'">{{ formattedElapsedTime }}</p>
         </div>
         <b-container>
@@ -147,8 +157,8 @@ export default {
         },
         // Chimes
         toggleChimes() {
-            this.soundActive = !this.soundActive
-            console.log(this.soundActive)
+            this.chimesActive = !this.chimesActive
+            console.log(this.chimesActive)
         },
         playLowChime() {
             if ( this.round.phase === this.phases[1] && this.chimesActive === true ) {
@@ -268,7 +278,7 @@ export default {
             this.timer = setInterval(() => {
                 this.elapsedTime += 1000
                 // play chimes
-                if ( this.chimesActive === true && ( this.elapsedTime === 1000 || this.elapsedTime % 10000 === 0 ) ) {
+                if ( this.chimesActive === true && ( this.elapsedTime === 1000 || this.elapsedTime % 60000 === 0 ) ) {
                     this.playLowChime()
                 }
             }, 1000)

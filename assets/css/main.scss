@@ -30,6 +30,10 @@ p {
   margin-top: 0px;
 }
 
+hr {
+    border: none;
+}
+
 .no-display {
     display: none;
 }
@@ -37,14 +41,14 @@ p {
     animation: none !important;
 }
 
-.reset {
+.option-buttons {
     position: absolute;
-    top: 24px;
+    top: 12px;
     left: 0;
     right: 0;
     width: 100%;
     .btn {
-        display: block;
+        display: inline-block;
     }
 }
 
