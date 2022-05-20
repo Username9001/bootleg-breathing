@@ -1,30 +1,11 @@
 <template>
-  <div v-if="isLoaded">
-      <!-- Reset button -->
-      <div class="option-buttons">
-        <b-btn class="m-auto" @click="finishSet()">
-            Reset
-        </b-btn>
-        <hr>
-        <b-btn class="m-auto" @click="toggleSound()">
-            Breathing sound
-        </b-btn>
-        <div v-if="soundActive">
-            Sounds active
-        </div>
-        <hr>
-        <b-btn class="m-auto" @click="toggleChimes()">
-            Chime sounds
-        </b-btn>
-        <div v-if="chimesActive">
-            Chimes active
-        </div>
-      </div>
+    <div v-if="isLoaded">
         <!-- Round Counter -->
         <div class="round-counter">
             <h4 class="text-center">Round {{ round.number }}</h4>
             <p v-if="round.phase === 'breathHold'">{{ formattedElapsedTime }}</p>
         </div>
+        <!-- Main button / seconds counter -->
         <b-container>
             <div
                 v-if="round.number === 0"
@@ -60,7 +41,25 @@
             <h5 v-if="round.phase === 'deepBreath'">Take a deep breath in and hold for 15 seconds (click circle to skip)</h5>
             <h5 v-if="round.phase === 'smallPause'">Get back into that rhythm</h5>
         </div>
-  </div>
+        <!-- Option buttons -->
+        <div class="option-buttons row">
+            <b-btn class="col" @click="toggleSound()">
+                Breathing sound
+                <div v-if="soundActive">
+                    &#10003;
+                </div>
+            </b-btn>
+            <b-btn class="col" @click="toggleChimes()">
+                Chime sounds
+                <div v-if="chimesActive">
+                    &#10003;
+                </div>
+            </b-btn>
+            <b-btn class="col" @click="finishSet()">
+                Reset
+            </b-btn>
+        </div>
+    </div>
 </template>
 
 <script>
