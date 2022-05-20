@@ -1,5 +1,13 @@
 <template>
     <div v-if="isLoaded">
+        <!-- Previous round time -->
+        <div 
+            class="previous-round-time"
+        >
+            <p class="text-center">
+                <i>Previous round: {{ previousRoundTime }}</i>
+            </p>
+        </div>
         <!-- Round Counter -->
         <div class="round-counter">
             <h4 class="text-center">Round {{ round.number }}</h4>
@@ -109,6 +117,7 @@ export default {
                 // end
                 'end'
             ],
+            previousRoundTime: undefined,
         }
     },
     computed: {
@@ -214,6 +223,8 @@ export default {
         deepBreathPhase() {
             // check if not already running
             if ( this.round.phase !== this.phases[2]) {
+                // log previous round time
+                this.previousRoundTime = this.formattedElapsedTime
                 // adjust round object
                 this.round.phase = this.phases[2]
                 // set hold time
