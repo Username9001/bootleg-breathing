@@ -44,7 +44,7 @@
         </b-container>
         <!-- Instructions -->
         <div class="instructions">
-            <h5 v-if="round.phase === 'breathCycle'">Breath deeply for 30-40 times (click the circle to end the cycle)</h5>
+            <h5 v-if="round.phase === 'breathCycle'">Breath deeply for {{ cycleAmount }} times (click the circle to end the cycle)</h5>
             <h5 v-if="round.phase === 'breathHold'">Let go and hold your breath</h5>
             <h5 v-if="round.phase === 'deepBreath'">Take a deep breath in and hold for 15 seconds (click circle to skip)</h5>
             <h5 v-if="round.phase === 'smallPause'">Get back into that rhythm</h5>
@@ -67,8 +67,22 @@
                         &#10003;
                     </div>
                 </b-btn>
+                <b-btn class="" @click="toggleVoice()">
+                    Voice (N/A)
+                    <div v-if="voiceActive">
+                        &#10003;
+                    </div>
+                </b-btn>
+                <b-form-group>
+                    <label for="cycleAmount">Breath Cycles (20-60)</label>
+                    <b-form-spinbutton id="cycleAmount" v-model="cycleAmount" min="20" max="60"></b-form-spinbutton>
+                </b-form-group>
+                <b-form-group>
+                    <label for="deepHoldAmount">Breath Hold time (10-30)</label>
+                    <b-form-spinbutton id="deepHoldAmount" v-model="deepHoldAmount" min="10" max="30"></b-form-spinbutton>
+                </b-form-group>
                 <b-btn class="" @click="finishSet()">
-                    Reset
+                    Reset Breathing Exercise
                 </b-btn>
             </div>
         </div>
@@ -111,11 +125,14 @@ export default {
             chimesActive: true,
             chimeLow,
             chimeHigh,
+            voiceActive: false,
             // page load
             isLoaded: false,
             // breath variables
             breathCycles: 0,
+            cycleAmount: 40,
             deepBreathTime: 0,
+            deepHoldAmount: 15,
             breathTime: 3500,
             // stopwatch
             elapsedTime: 0,
@@ -161,6 +178,9 @@ export default {
             this.round.phase = this.phases[4]
             this.stopStopwatch()
             this.resetStopwatch()
+            // reset vars
+            this.deepHoldAmount = 15
+            this.cycleAmount = 40
             console.log("set finished", this.round.phase)
         },
         // sounds
@@ -211,6 +231,11 @@ export default {
                 console.log('playing')
             }
         },
+        // Voice
+        toggleVoice() {
+            this.voiceActive = !this.voiceActive
+            console.log(this.voiceActive)
+        },
         // go through phases
         // breath cycle phase
         breathCyclePhase() {
@@ -257,7 +282,7 @@ export default {
                 // adjust round object
                 this.round.phase = this.phases[2]
                 // set hold time
-                this.deepBreathTime = 15
+                this.deepBreathTime = this.deepHoldAmount
                 // start hold
                 this.deepBreathCountdown()
                 // play sound
@@ -293,13 +318,13 @@ export default {
         // Breathing cycle method
         breathingLoop() {
             // max breathing count
-            if ( this.breathCycles === 41 || this.activeLoop === false ) {
+            if ( this.breathCycles === this.cycleAmount + 1 || this.activeLoop === false ) {
                 // go to next phase
                 this.breathHoldPhase()
                 return
             }
             // main loop
-            if( this.breathCycles < 41 && this.round.phase === this.phases[0] ) {
+            if( this.breathCycles < this.cycleAmount + 1 && this.round.phase === this.phases[0] ) {
                 // play sound
                 this.playSounds()
                 // cancel function

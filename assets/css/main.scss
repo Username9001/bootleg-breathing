@@ -51,9 +51,12 @@ hr {
     right: 24px;
 }
 .option-buttons {
-    .btn {
+    .btn, .form-group {
         margin: 24px;
         width: 100%;
+    }
+    .form-group .btn {
+        margin: 0;
     }
 }
 
@@ -170,4 +173,9 @@ hr {
 .dark-mode {
     background: $bg-dark;
     color: $text-dark;
+}
+
+.light-mode {
+    background: $bg-light;
+    color: $text-light;
 }
