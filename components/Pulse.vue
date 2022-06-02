@@ -46,7 +46,7 @@
         <div class="instructions">
             <h5 v-if="round.phase === 'breathCycle'">Breath deeply for {{ cycleAmount }} times (click the circle to end the cycle)</h5>
             <h5 v-if="round.phase === 'breathHold'">Let go and hold your breath</h5>
-            <h5 v-if="round.phase === 'deepBreath'">Take a deep breath in and hold for 15 seconds (click circle to skip)</h5>
+            <h5 v-if="round.phase === 'deepBreath'">Take a deep breath in and hold for {{ deepHoldAmount }} seconds (click circle to skip)</h5>
             <h5 v-if="round.phase === 'smallPause'">Get back into that rhythm</h5>
         </div>
         <!-- Options -->
@@ -57,28 +57,28 @@
             <div class="option-buttons row">
                 <b-btn class="" @click="toggleSound()">
                     Breathing sound
-                    <div v-if="soundActive">
+                    <small v-if="soundActive">
                         &#10003;
-                    </div>
+                    </small>
                 </b-btn>
                 <b-btn class="" @click="toggleChimes()">
                     Chime sounds
-                    <div v-if="chimesActive">
+                    <small v-if="chimesActive">
                         &#10003;
-                    </div>
+                    </small>
                 </b-btn>
                 <b-btn class="" @click="toggleVoice()">
                     Voice (N/A)
-                    <div v-if="voiceActive">
+                    <small v-if="voiceActive">
                         &#10003;
-                    </div>
+                    </small>
                 </b-btn>
                 <b-form-group>
                     <label for="cycleAmount">Breath Cycles (20-60)</label>
                     <b-form-spinbutton id="cycleAmount" v-model="cycleAmount" min="20" max="60"></b-form-spinbutton>
                 </b-form-group>
                 <b-form-group>
-                    <label for="deepHoldAmount">Breath Hold time (10-30)</label>
+                    <label for="deepHoldAmount">Breath Hold Time (10-30s)</label>
                     <b-form-spinbutton id="deepHoldAmount" v-model="deepHoldAmount" min="10" max="30"></b-form-spinbutton>
                 </b-form-group>
                 <b-btn class="" @click="finishSet()">
