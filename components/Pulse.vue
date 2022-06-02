@@ -163,6 +163,12 @@ export default {
                 inSound.play()
             }
         },
+        playBreathOut() {
+            if ( this.round.phase === this.phases[2] && this.soundActive === true ) {
+                const outSound = new Audio(this.breathOutSound)
+                outSound.play()
+            }
+        },
         // Chimes
         toggleChimes() {
             this.chimesActive = !this.chimesActive
@@ -248,6 +254,8 @@ export default {
         smallPausePhase() {
             // check if not already running
             if ( this.round.phase !== this.phases[3]) {
+                // audio cue
+                this.playBreathOut()
                 // adjust round object
                 this.round.phase = this.phases[3]
                 // reset stopwatch
