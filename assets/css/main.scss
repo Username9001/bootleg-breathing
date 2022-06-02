@@ -44,17 +44,16 @@ hr {
     animation: none !important;
 }
 
-.option-buttons {
+.sidebar-toggle {
     position: absolute;
-    bottom: 0;
-    left: 12px;
-    right: 12px;
-    max-width: 100%;
+    bottom: 24px;
+    // left: 0;
+    right: 24px;
+}
+.option-buttons {
     .btn {
-        position: relative;
-        display: block;
         margin: 24px;
-        height: 84px;
+        width: 100%;
     }
 }
 

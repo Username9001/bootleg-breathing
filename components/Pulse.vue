@@ -49,8 +49,31 @@
             <h5 v-if="round.phase === 'deepBreath'">Take a deep breath in and hold for 15 seconds (click circle to skip)</h5>
             <h5 v-if="round.phase === 'smallPause'">Get back into that rhythm</h5>
         </div>
-        <!-- Option buttons -->
-        <div class="option-buttons row">
+        <!-- Options -->
+        <!-- <Options /> -->
+        <b-button v-b-toggle.sidebar-variant class="sidebar-toggle">Change Options</b-button>
+        <b-sidebar id="sidebar-variant" title="Options" bg-variant="dark" text-variant="light" shadow>
+        <div class="px-3 py-2">
+            <div class="option-buttons row">
+                <b-btn class="" @click="toggleSound()">
+                    Breathing sound
+                    <div v-if="soundActive">
+                        &#10003;
+                    </div>
+                </b-btn>
+                <b-btn class="" @click="toggleChimes()">
+                    Chime sounds
+                    <div v-if="chimesActive">
+                        &#10003;
+                    </div>
+                </b-btn>
+                <b-btn class="" @click="finishSet()">
+                    Reset
+                </b-btn>
+            </div>
+        </div>
+        </b-sidebar>
+        <!-- <div class="option-buttons row">
             <b-btn class="col" @click="toggleSound()">
                 Breathing sound
                 <div v-if="soundActive">
@@ -66,7 +89,7 @@
             <b-btn class="col" @click="finishSet()">
                 Reset
             </b-btn>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -264,7 +287,7 @@ export default {
                 // start a new round
                 setTimeout(() => {
                     this.breathCyclePhase()
-                }, 1500)
+                }, 2500)
             }
         },
         // Breathing cycle method
