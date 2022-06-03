@@ -51,42 +51,42 @@
         </div>
         <!-- Options -->
         <!-- <Options /> -->
-        <b-button v-b-toggle.sidebar-variant class="sidebar-toggle">Change Options</b-button>
-        <b-sidebar id="sidebar-variant" title="Options" bg-variant="dark" text-variant="light" shadow>
-        <div class="px-3 py-2">
-            <div class="option-buttons row">
-                <b-btn class="" @click="toggleSound()">
-                    Breathing sound
-                    <small v-if="soundActive">
-                        &#10003;
-                    </small>
-                </b-btn>
-                <b-btn class="" @click="toggleChimes()">
-                    Chime sounds
-                    <small v-if="chimesActive">
-                        &#10003;
-                    </small>
-                </b-btn>
-                <b-btn class="" @click="toggleVoice()">
-                    Voice (N/A)
-                    <small v-if="voiceActive">
-                        &#10003;
-                    </small>
-                </b-btn>
-                <b-form-group>
-                    <label for="cycleAmount">Breath Cycles (20-60)</label>
-                    <b-form-spinbutton id="cycleAmount" v-model="cycleAmount" min="20" max="60"></b-form-spinbutton>
-                </b-form-group>
-                <b-form-group>
-                    <label for="deepHoldAmount">Breath Hold Time (10-30s)</label>
-                    <b-form-spinbutton id="deepHoldAmount" v-model="deepHoldAmount" min="10" max="30"></b-form-spinbutton>
-                </b-form-group>
-                <b-btn class="" @click="finishSet()">
-                    Reset Breathing Exercise
-                </b-btn>
+        <b-button v-b-modal.modal-1 class="modal-toggle">Change Options</b-button>
+        <b-modal id="modal-1" title="Options" bg-variant="dark" text-variant="light" shadow>
+            <div class="px-3 py-2 accordion">
+                <div class="option-buttons row">
+                    <b-btn class="" @click="toggleSound()">
+                        Breathing sound
+                        <small v-if="soundActive">
+                            &#10003;
+                        </small>
+                    </b-btn>
+                    <b-btn class="" @click="toggleChimes()">
+                        Chime sounds
+                        <small v-if="chimesActive">
+                            &#10003;
+                        </small>
+                    </b-btn>
+                    <b-btn class="" @click="toggleVoice()">
+                        Voice (N/A)
+                        <small v-if="voiceActive">
+                            &#10003;
+                        </small>
+                    </b-btn>
+                    <b-form-group>
+                        <label for="cycleAmount">Breath Cycles (20-60)</label>
+                        <b-form-spinbutton id="cycleAmount" v-model="cycleAmount" min="20" max="60"></b-form-spinbutton>
+                    </b-form-group>
+                    <b-form-group>
+                        <label for="deepHoldAmount">Breath Hold Time (10-30s)</label>
+                        <b-form-spinbutton id="deepHoldAmount" v-model="deepHoldAmount" min="10" max="30"></b-form-spinbutton>
+                    </b-form-group>
+                    <b-btn class="" @click="finishSet()">
+                        Reset Breathing Exercise
+                    </b-btn>
+                </div>
             </div>
-        </div>
-        </b-sidebar>
+        </b-modal>
         <!-- <div class="option-buttons row">
             <b-btn class="col" @click="toggleSound()">
                 Breathing sound
@@ -341,10 +341,11 @@ export default {
         },
         // Breath hold cycle methods (stopwatch methods)
         startStopwatch() {
+            this.timer = undefined
             this.timer = setInterval(() => {
                 this.elapsedTime += 1000
                 // play chimes
-                if ( this.chimesActive === true && ( this.elapsedTime === 1000 || this.elapsedTime % 60000 === 0 ) ) {
+                if ( this.chimesActive === true && ( this.elapsedTime % 60000 === 0 ) ) {
                     this.playLowChime()
                 }
             }, 1000)
