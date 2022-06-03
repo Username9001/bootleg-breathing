@@ -51,7 +51,10 @@
         </div>
         <!-- Options -->
         <!-- <Options /> -->
-        <b-button v-b-modal.modal-1 class="modal-toggle">Change Options</b-button>
+        <b-btn class="reset-button" @click="finishSet()">
+            Reset Breathing Exercise
+        </b-btn>
+        <b-btn v-b-modal.modal-1 class="modal-toggle">Change Options</b-btn>
         <b-modal id="modal-1" title="Options" bg-variant="dark" text-variant="light" shadow>
             <div class="px-3 py-2 accordion">
                 <div class="option-buttons row">
@@ -81,29 +84,9 @@
                         <label for="deepHoldAmount">Breath Hold Time (10-30s)</label>
                         <b-form-spinbutton id="deepHoldAmount" v-model="deepHoldAmount" min="10" max="30"></b-form-spinbutton>
                     </b-form-group>
-                    <b-btn class="" @click="finishSet()">
-                        Reset Breathing Exercise
-                    </b-btn>
                 </div>
             </div>
         </b-modal>
-        <!-- <div class="option-buttons row">
-            <b-btn class="col" @click="toggleSound()">
-                Breathing sound
-                <div v-if="soundActive">
-                    &#10003;
-                </div>
-            </b-btn>
-            <b-btn class="col" @click="toggleChimes()">
-                Chime sounds
-                <div v-if="chimesActive">
-                    &#10003;
-                </div>
-            </b-btn>
-            <b-btn class="col" @click="finishSet()">
-                Reset
-            </b-btn>
-        </div> -->
     </div>
 </template>
 
@@ -221,14 +204,14 @@ export default {
             if ( this.round.phase === this.phases[1] && this.chimesActive === true ) {
                 const chimeLow = new Audio(this.chimeLow)
                 chimeLow.play()
-                console.log('playing')
+                console.log('playing low chime')
             }
         },
         playHighChime() {
             if ( this.round.phase === this.phases[2] && this.chimesActive === true ) {
                 const chimeHigh = new Audio(this.chimeHigh)
                 chimeHigh.play()
-                console.log('playing')
+                console.log('playing high chime')
             }
         },
         // Voice
