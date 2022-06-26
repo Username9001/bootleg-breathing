@@ -76,10 +76,7 @@
                             &#10003;
                         </small>
                     </b-btn>
-                    <div>
-                        <b-form-select v-model="selectedMusic" :options="selectableTracks"></b-form-select>
-                        <div class="mt-3">Selected: <strong>{{ selectedMusic }}</strong></div>
-                    </div>
+                    <b-form-select v-model="selectedMusic" :options="selectableTracks"></b-form-select>
                     <b-btn class="" @click="checkMusic()">
                         Check Music
                     </b-btn>
@@ -269,6 +266,7 @@ export default {
                 // this.stopMusic()
             }
             if ( this.musicActive === true ) {
+                // this.currentMusic.currentTime = 0
                 this.currentMusic.play()
             }
         },
@@ -295,7 +293,7 @@ export default {
                         // start breath
                         this.breathingLoop()
                         console.log('breath cycle phase')
-                    }, 200 )
+                    }, 20 )
                 }
         },
         // breath hold phase
@@ -309,9 +307,9 @@ export default {
                 // start stopwatch
                 this.startStopwatch()
                 // console
-                setTimeout( () => {
-                    console.log('breath hold phase')
-                }, 200 )
+                // setTimeout( () => {
+                //     console.log('breath hold phase')
+                // }, 200 )
             }
         },
         // deep breath in phase
@@ -329,9 +327,9 @@ export default {
                 // play sound
                 this.playBreathIn()
                 // console
-                setTimeout( () => {
-                    console.log('deep breath phase')
-                }, 200 )
+                // setTimeout( () => {
+                //     console.log('deep breath phase')
+                // }, 200 )
             }
         },
         skipDeepBreath() {
