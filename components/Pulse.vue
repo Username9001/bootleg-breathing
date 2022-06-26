@@ -130,12 +130,36 @@ export default {
             musicActive: true,
             selectedMusic: japaneseWaterGarden,
             selectableTracks: [
-                ancientAtonal,
-                autumnSky,
-                japaneseWaterGarden,
-                oldWaterMill,
-                space,
-                tibetan
+                { 
+                    value: ancientAtonal,
+                    text: 'Ancient Atonal',
+                    
+                },
+                { 
+                    value: autumnSky,
+                    text: 'Autumn Sky',
+                    
+                },
+                { 
+                    value: japaneseWaterGarden,
+                    text: 'Japanese Water Garden',
+                    
+                },
+                { 
+                    value: oldWaterMill,
+                    text: 'Old Water Mill',
+                    
+                },
+                { 
+                    value: space,
+                    text: 'Space',
+                    
+                },
+                { 
+                    value: tibetan,
+                    text: 'Tibetan',
+                    
+                }
             ],
             // page load
             isLoaded: false,
