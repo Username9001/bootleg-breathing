@@ -76,8 +76,8 @@
                             &#10003;
                         </small>
                     </b-btn>
-                    <b-form-select v-model="selectedMusic" :options="selectableTracks"></b-form-select>
-                    <b-btn class="" @click="checkMusic()">
+                    <b-form-select v-if="musicActive" v-model="selectedMusic" :options="selectableTracks"></b-form-select>
+                    <b-btn v-if="musicActive" class="" @click="checkMusic()">
                         Check Music
                     </b-btn>
                     <b-btn class="" @click="toggleVoice()">
@@ -216,6 +216,8 @@ export default {
             this.round.number = 0
             this.round.phase = this.phases[4]
             this.activeLoop = false
+            this.timer = undefined
+            // reset stopwatch
             this.stopStopwatch()
             this.resetStopwatch()
             // stop music
@@ -323,7 +325,7 @@ export default {
         // breath hold phase
         breathHoldPhase() {
             // check if not already running
-            if ( this.round.phase !== this.phases[1]) {
+            if ( this.round.number !== 0 && this.round.phase !== this.phases[1]) {
                 // end breath loop
                 this.activeLoop = false
                 // adjust round object
@@ -342,6 +344,9 @@ export default {
             if ( this.round.phase !== this.phases[2]) {
                 // log previous round time
                 this.previousRoundTime = this.formattedElapsedTime
+                // reset stopwatch
+                this.stopStopwatch()
+                this.resetStopwatch()
                 // adjust round object
                 this.round.phase = this.phases[2]
                 // set hold time
@@ -407,6 +412,7 @@ export default {
             this.timer = undefined
             this.timer = setInterval(() => {
                 this.elapsedTime += 1000
+                console.log('checking speed', this.elapsedTime)
                 // play chimes
                 if ( this.chimesActive === true && ( this.elapsedTime % 60000 === 0 ) ) {
                     this.playLowChime()
