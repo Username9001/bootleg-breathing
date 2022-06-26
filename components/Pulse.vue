@@ -52,7 +52,7 @@
         <!-- Options -->
         <!-- <Options /> -->
         <b-btn class="reset-button" @click="finishSet()">
-            Reset Breathing Exercise
+            Reset
         </b-btn>
         <b-btn v-b-modal.modal-1 class="modal-toggle">Change Options</b-btn>
         <b-modal id="modal-1" title="Options" bg-variant="dark" text-variant="light" shadow>
@@ -80,12 +80,12 @@
                     <b-btn v-if="musicActive" class="" @click="checkMusic()">
                         Check Music
                     </b-btn>
-                    <b-btn class="" @click="toggleVoice()">
+                    <!-- <b-btn class="" @click="toggleVoice()">
                         Voice (N/A)
                         <small v-if="voiceActive">
                             &#10003;
                         </small>
-                    </b-btn>
+                    </b-btn> -->
                     <b-form-group>
                         <label for="cycleAmount">Breath Cycles (20-60)</label>
                         <b-form-spinbutton id="cycleAmount" v-model="cycleAmount" min="20" max="60"></b-form-spinbutton>

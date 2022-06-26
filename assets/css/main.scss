@@ -1,5 +1,4 @@
 // variables
-
 $breath-time: 3.5s;
 // components
 $btn-color: radial-gradient(circle, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5074230375744048) 0%, rgba(255,166,0,0.9528011888349089) 76%);
@@ -29,7 +28,7 @@ body {
 
 p {
   text-align: center;
-  font-size: 60px;
+  font-size: 42px;
   margin-top: 0px;
 }
 
@@ -70,7 +69,7 @@ select {
 
 .previous-round-time {
     position: absolute;
-    top: 48px;
+    top: 12px;
     left: 0;
     right: 0;
     p {
@@ -81,7 +80,7 @@ select {
 
 .round-counter {
     position: absolute;
-    top: 96px;
+    top: 58px;
     left: 0;
     right: 0;
     h1 {
@@ -136,7 +135,7 @@ select {
 
 .instructions {
     position: absolute;
-    bottom: 128px;
+    bottom: 48px;
     left: 0;
     right: 0;
     padding: 24px;
