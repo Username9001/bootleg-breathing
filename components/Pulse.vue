@@ -70,6 +70,19 @@
                             &#10003;
                         </small>
                     </b-btn>
+                    <b-btn class="" @click="toggleMusic()">
+                        Music
+                        <small v-if="musicActive">
+                            &#10003;
+                        </small>
+                    </b-btn>
+                    <div>
+                        <b-form-select v-model="selectedMusic" :options="selectableTracks"></b-form-select>
+                        <div class="mt-3">Selected: <strong>{{ selectedMusic }}</strong></div>
+                    </div>
+                    <b-btn class="" @click="checkMusic()">
+                        Check Music
+                    </b-btn>
                     <b-btn class="" @click="toggleVoice()">
                         Voice (N/A)
                         <small v-if="voiceActive">
@@ -97,6 +110,14 @@ const breathOutSound = require("@/assets/sounds/BreathOutSound.mp3").default;
 const chimeLow = require("@/assets/sounds/ChimeLow.mp3").default;
 const chimeHigh = require("@/assets/sounds/ChimeHigh.mp3").default;
 
+// music tracks
+const ancientAtonal = require("@/assets/sounds/music/AncientAtonal.mp3").default;
+const autumnSky = require("@/assets/sounds/music/AutumnSky.mp3").default;
+const japaneseWaterGarden = require("@/assets/sounds/music/JapaneseWaterGarden.mp3").default;
+const oldWaterMill = require("@/assets/sounds/music/OldWaterMill.mp3").default;
+const space = require("@/assets/sounds/music/Space.mp3").default;
+const tibetan = require("@/assets/sounds/music/Tibetan.mp3").default;
+
 export default {
     data() {
         return {
@@ -109,6 +130,16 @@ export default {
             chimeLow,
             chimeHigh,
             voiceActive: false,
+            musicActive: true,
+            selectedMusic: japaneseWaterGarden,
+            selectableTracks: [
+                ancientAtonal,
+                autumnSky,
+                japaneseWaterGarden,
+                oldWaterMill,
+                space,
+                tibetan
+            ],
             // page load
             isLoaded: false,
             // breath variables
@@ -149,6 +180,10 @@ export default {
             date.setSeconds(this.elapsedTime / 1000)
             const utc = date.toUTCString()
             return utc.substr(utc.indexOf(":") + 1, 6)
+        },
+        currentMusic() {
+            const currentTrack = new Audio(this.selectedMusic)
+            return currentTrack
         }
     },
     mounted() {
@@ -159,8 +194,11 @@ export default {
         finishSet() {
             this.round.number = 0
             this.round.phase = this.phases[4]
+            this.activeLoop = false
             this.stopStopwatch()
             this.resetStopwatch()
+            // stop music
+            this.stopMusic()
             // reset vars
             this.deepHoldAmount = 15
             this.cycleAmount = 40
@@ -219,11 +257,29 @@ export default {
             this.voiceActive = !this.voiceActive
             console.log(this.voiceActive)
         },
+        // Music
+        toggleMusic() {
+            this.musicActive = !this.musicActive
+            console.log(this.musicActive)
+        },
+        checkMusic() {
+            // const currentMusic = new Audio(this.selectedMusic)
+            if ( this.musicActive === false ) {
+                this.currentMusic.pause()
+                // this.stopMusic()
+            }
+            if ( this.musicActive === true ) {
+                this.currentMusic.play()
+            }
+        },
+        stopMusic() {
+            this.currentMusic.pause()
+            this.currentMusic.currentTime = 0
+        },
         // go through phases
         // breath cycle phase
         breathCyclePhase() {
             // check if not already running
-                // All the taxing stuff you do
                 if ( this.round.phase !== this.phases[0]) {
                     // adjust round object
                     this.round.phase = this.phases[0]
@@ -231,6 +287,8 @@ export default {
                     this.breathCycles = 1
                     // set round number
                     this.round.number++
+                    // start music if set
+                    this.checkMusic()
                     // start loop
                     this.activeLoop = true
                     setTimeout( () => {
