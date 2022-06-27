@@ -38,14 +38,14 @@
             <div 
                 v-if="round.phase === 'deepBreath'"
                 id="timer2"
-                class="text-center inhale main-button"
+                class="text-center m-auto inhale main-button"
                 @click="skipDeepBreath()"
             >{{ deepBreathTime }}</div>
             <div 
                 v-if="round.phase === 'smallPause'"
-                class="text-center exhale main-button"
+                class="m-auto exhale main-button"
             >
-                <!-- <h1>Pause/Exhale</h1> -->
+                <!-- <h1>Exhale</h1> -->
             </div>
         </b-container>
         <!-- Instructions -->
