@@ -1,3 +1,6 @@
+// font
+@import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@500&display=swap');
+
 // variables
 $breath-time: 3.5s;
 // components
@@ -19,6 +22,7 @@ html {
     height: 100%;
     user-select: none;
     overflow-x: hidden;
+    font-family: 'Anek Malayalam', sans-serif;
 }
 
 body {
