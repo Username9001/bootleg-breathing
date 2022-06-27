@@ -76,10 +76,15 @@
                             &#10003;
                         </small>
                     </b-btn>
-                    <b-form-select v-if="musicActive" v-model="selectedMusic" :options="selectableTracks"></b-form-select>
+                    <b-form-group description="select a track">
+                        <b-form-select v-if="musicActive" v-model="selectedMusic" :options="selectableTracks"></b-form-select>
+                    </b-form-group>
                     <b-btn v-if="musicActive" class="" @click="checkMusic()">
                         Check Music
                     </b-btn>
+                    <!-- <b-btn @click="stopStopwatch()">
+                        Stop stopwatch
+                    </b-btn> -->
                     <!-- <b-btn class="" @click="toggleVoice()">
                         Voice (N/A)
                         <small v-if="voiceActive">
@@ -216,13 +221,14 @@ export default {
             this.round.number = 0
             this.round.phase = this.phases[4]
             this.activeLoop = false
-            this.timer = undefined
             // reset stopwatch
             this.stopStopwatch()
             this.resetStopwatch()
             // stop music
             this.stopMusic()
             // reset vars
+            this.timer = undefined
+            this.formattedElapsedTime = undefined
             this.deepHoldAmount = 15
             this.cycleAmount = 40
             console.log("set finished", this.round.phase)
@@ -315,11 +321,11 @@ export default {
                     this.checkMusic()
                     // start loop
                     this.activeLoop = true
-                    setTimeout( () => {
+                    // setTimeout( () => {
                         // start breath
-                        this.breathingLoop()
-                        console.log('breath cycle phase')
-                    }, 20 )
+                    this.breathingLoop()
+                        // console.log('breath cycle phase')
+                    // }, 20 )
                 }
         },
         // breath hold phase
@@ -392,7 +398,7 @@ export default {
                 return
             }
             // main loop
-            if( this.breathCycles < this.cycleAmount + 1 && this.round.phase === this.phases[0] ) {
+            if( this.breathCycles < this.cycleAmount + 1 && this.round.phase === this.phases[0] && this.activeLoop === true ) {
                 // play sound
                 this.playSounds()
                 // cancel function
@@ -400,10 +406,11 @@ export default {
                     // count up
                     this.breathCycles += 1
                     this.breathingLoop()
+                    console.log('breathing loop', this.breathCycles);
                     // console
-                    setTimeout( () => {
-                        console.log('breathing loop', this.breathCycles);
-                    }, 200 )
+                    // setTimeout( () => {
+                    //     console.log('breathing loop', this.breathCycles);
+                    // }, 200 )
                 }, this.breathTime)
             } 
         },
@@ -412,7 +419,7 @@ export default {
             this.timer = undefined
             this.timer = setInterval(() => {
                 this.elapsedTime += 1000
-                console.log('checking speed', this.elapsedTime)
+                console.log('checking speed', this.formattedElapsedTime)
                 // play chimes
                 if ( this.chimesActive === true && ( this.elapsedTime % 60000 === 0 ) ) {
                     this.playLowChime()

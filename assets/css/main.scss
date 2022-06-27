@@ -1,13 +1,17 @@
 // variables
 $breath-time: 3.5s;
 // components
-$btn-color: radial-gradient(circle, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5074230375744048) 0%, rgba(255,166,0,0.9528011888349089) 76%);
+$btn-color: radial-gradient(circle, rgba(255,255,255,0) 0%, rgb(255, 255, 255) 0%, rgba(255,166,0,0.9528011888349089) 76%);
 // dark-mode
 $bg-dark: #2d2d2d;
 $text-dark: #fff;
+$button-border-dark: 2px solid #fff;
+$button-shadow-dark: 0px 0px 15px #fff;
 // light-mode
 $bg-light: #fff;
 $text-light: #2d2d2d;
+$button-border-light: 2px solid #fff;
+$button-shadow-light: 0px 0px 15px #000;
 
 
 body,
@@ -43,12 +47,12 @@ hr {
     animation: none !important;
 }
 
-.reset-button {
+.modal-toggle {
     position: absolute;
     bottom: 24px;
     left: 24px;
 }
-.modal-toggle {
+.reset-button {
     position: absolute;
     bottom: 24px;
     right: 24px;
@@ -62,10 +66,6 @@ hr {
         margin: 0;
     }
 }
-select {
-    margin: 24px;
-    width: 100%;
-}
 
 .previous-round-time {
     position: absolute;
@@ -74,7 +74,7 @@ select {
     right: 0;
     p {
         font-size: 24px;
-        opacity: 0.4;
+        opacity: 0.75;
     }
 }
 
@@ -96,6 +96,10 @@ select {
     line-height: 250px;
     margin: 0 auto;
     background: $btn-color;
+    // border: $btn-border;
+    // box-shadow: $btn-shadow;
+    // border: 2px solid #fff;
+    // box-shadow: 0px 0px 15px #fff;
     font-size: 48px;
     color: white;
     text-shadow: 0 0 10px black;
@@ -169,11 +173,19 @@ select {
         background: $bg-dark;
         color: $text-dark;
     }
+    .main-button {
+        box-shadow: $button-shadow-dark;
+        border: $button-border-dark;
+    }
 }
 @media ( prefers-color-scheme: light ) {
     body {
         background: $bg-light;
         color: $text-light;
+    }
+    .main-button {
+        box-shadow: $button-shadow-light;
+        border: $button-border-light;
     }
 }
 
