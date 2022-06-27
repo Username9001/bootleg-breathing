@@ -41,6 +41,12 @@
                 class="text-center inhale main-button"
                 @click="skipDeepBreath()"
             >{{ deepBreathTime }}</div>
+            <div 
+                v-if="round.phase === 'smallPause'"
+                class="text-center exhale main-button"
+            >
+                <!-- <h1>Pause/Exhale</h1> -->
+            </div>
         </b-container>
         <!-- Instructions -->
         <div class="instructions">
@@ -376,10 +382,10 @@ export default {
         smallPausePhase() {
             // check if not already running
             if ( this.round.phase !== this.phases[3]) {
-                // audio cue
-                this.playBreathOut()
                 // adjust round object
                 this.round.phase = this.phases[3]
+                // audio cue
+                this.playBreathOut()
                 // reset stopwatch
                 this.stopStopwatch()
                 this.resetStopwatch()
@@ -438,7 +444,7 @@ export default {
             if ( this.deepBreathTime === 0 ) {
                 // go to next phase/round
                 this.smallPausePhase()
-                return;
+                // return;
             }
             if ( this.deepBreathTime === 1 ) {
                 this.playHighChime()
