@@ -1,12 +1,12 @@
 // variables
 $breath-time: 3.5s;
 // components
-$btn-color: radial-gradient(circle, rgba(255,255,255,0) 0%, rgb(255, 255, 255) 0%, rgba(255,166,0,0.9528011888349089) 76%);
+$btn-color: radial-gradient(circle, rgba(255,255,255,0) 0%, rgb(255, 255, 255) 0%, rgb(255, 175, 0) 76%);
 // dark-mode
 $bg-dark: #2d2d2d;
 $text-dark: #fff;
 $button-border-dark: 2px solid #fff;
-$button-shadow-dark: 0px 0px 15px #fff;
+$button-shadow-dark: 0px 0px 100px #fff;
 // light-mode
 $bg-light: #fff;
 $text-light: #2d2d2d;
@@ -125,9 +125,9 @@ hr {
     /* animation-play-state: running; */
 }
 .inhale {
-    height: 500px;
-    width: 500px;
-    line-height: 500px;
+    height: 1000px;
+    width: 1000px;
+    line-height: 1000px;
     border-radius: 100%;
     animation-name: inhale;
     animation-duration: 1.5s;
