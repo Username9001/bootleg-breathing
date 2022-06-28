@@ -67,7 +67,7 @@
             Reset
         </b-btn>
         <b-btn v-b-modal.modal-1 class="modal-toggle">Change Options</b-btn>
-        <b-modal id="modal-1" title="Options" header-bg-variant="dark" body-bg-variant="dark" footer-bg-variant="dark" text-variant="light" shadow>
+        <b-modal id="modal-1" title="Options" header-bg-variant="dark" body-bg-variant="dark" footer-bg-variant="dark" text-variant="dark" shadow>
             <div class="px-3 py-2 accordion">
                 <div class="option-buttons row">
                     <b-btn class="" @click="toggleSound()">
@@ -273,7 +273,7 @@ export default {
             }
         },
         playBreathOut() {
-            if ( this.round.phase === this.phases[2] && this.soundActive === true ) {
+            if ( this.round.phase === this.phases[3] && this.soundActive === true ) {
                 const outSound = new Audio(this.breathOutSound)
                 outSound.play()
             }
@@ -395,6 +395,7 @@ export default {
                 // adjust round object
                 this.round.phase = this.phases[3]
                 // audio cue
+                console.log("where's breath out?")
                 this.playBreathOut()
                 // reset stopwatch
                 this.stopStopwatch()
