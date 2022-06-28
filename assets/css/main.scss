@@ -42,6 +42,7 @@ p {
 
 ul {
     list-style-type: none;
+    padding: 0;
 }
 
 hr {
@@ -123,9 +124,12 @@ hr {
         font-weight: 700;
     }
     #collapse-1 {
+        height: 300px;
         background: #000;
-        opacity: 0.8;
+        opacity: 0.9;
         z-index: 2;
+        padding: 18px;
+        overflow-y: scroll;
     }
 }
 

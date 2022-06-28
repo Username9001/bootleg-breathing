@@ -21,13 +21,16 @@
         <div class="round-counter">
             <h4 class="text-center">Round {{ round.number }}</h4>
             <p v-if="round.phase === 'breathHold'">{{ formattedElapsedTime }}</p>
-            <b-collapse id="collapse-1">
+            <b-collapse id="collapse-1" class="text-center">
                 <ul>
                     All Round Times:
                     <li v-for="roundTime in roundTimes" :key="roundTime.round">
                         Round #{{ roundTime.round }} - {{ roundTime.time }}
                     </li>
                 </ul>
+                <b-btn @click="clearRoundTimes()">
+                    Clear round times
+                </b-btn>
             </b-collapse>
         </div>
         <!-- Main button / seconds counter -->
@@ -69,15 +72,15 @@
         <div class="instructions">
             <h5 v-if="round.phase === 'breathCycle'">Breath deeply for {{ cycleAmount }} times (click the circle to end the cycle)</h5>
             <h5 v-if="round.phase === 'breathHold'">Let go and hold your breath</h5>
-            <h5 v-if="round.phase === 'deepBreath'">Take a deep breath in and hold for {{ deepHoldAmount }} seconds (click circle to skip)</h5>
+            <h5 v-if="round.phase === 'deepBreath'">Take a deep breath in and hold for {{ deepHoldAmount }} seconds (click to skip)</h5>
             <h5 v-if="round.phase === 'smallPause'">Get back into that rhythm</h5>
         </div>
         <!-- Options -->
         <!-- <Options /> -->
-        <b-btn class="reset-button" @click="finishSet()">
+        <b-btn class="reset-button" variant="dark" @click="finishSet()">
             Reset
         </b-btn>
-        <b-btn v-b-modal.modal-1 class="modal-toggle">Change Options</b-btn>
+        <b-btn v-b-modal.modal-1 class="modal-toggle" variant="dark">Change Options</b-btn>
         <b-modal id="modal-1" title="Options" header-bg-variant="dark" body-bg-variant="dark" footer-bg-variant="dark" text-variant="dark" shadow>
             <div class="px-3 py-2 accordion">
                 <div class="option-buttons row">
@@ -481,6 +484,11 @@ export default {
                     this.deepBreathTime -= 1
                     this.deepBreathCountdown()
                 }, 1000)
+            }
+        },
+        clearRoundTimes() {
+            if(confirm("are you sure you want to clear the round times?")) {
+                this.roundTimes = []
             }
         },
     },
