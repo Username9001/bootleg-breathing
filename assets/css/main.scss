@@ -40,6 +40,10 @@ p {
   margin-top: 0px;
 }
 
+ul {
+    list-style-type: none;
+}
+
 hr {
     border: none;
 }
@@ -73,6 +77,11 @@ hr {
     bottom: 24px;
     left: 24px;
 }
+.times-button {
+    position: absolute;
+    bottom: 72px;
+    left: 24px;
+}
 .reset-button {
     position: absolute;
     bottom: 24px;
@@ -97,6 +106,9 @@ hr {
         font-size: 24px;
         opacity: 0.75;
     }
+    ul {
+
+    }
 }
 
 .round-counter {
@@ -107,6 +119,11 @@ hr {
     h1 {
         padding: 12px;
         font-weight: 700;
+    }
+    #collapse-1 {
+        background: #000;
+        opacity: 0.8;
+        z-index: 2;
     }
 }
 

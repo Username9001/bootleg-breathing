@@ -13,11 +13,20 @@
             <p class="text-center">
                 <i>Previous round: {{ previousRoundTime }}</i>
             </p>
+            <!-- round times list -->
         </div>
         <!-- Round Counter -->
         <div class="round-counter">
             <h4 class="text-center">Round {{ round.number }}</h4>
             <p v-if="round.phase === 'breathHold'">{{ formattedElapsedTime }}</p>
+            <b-collapse id="collapse-1">
+                <ul>
+                    All Round Times:
+                    <li v-for="roundTime in roundTimes" :key="roundTime.round">
+                        Round #{{ roundTime.round }} - {{ roundTime.time }}
+                    </li>
+                </ul>
+            </b-collapse>
         </div>
         <!-- Main button / seconds counter -->
         <b-container>
@@ -63,6 +72,7 @@
         </div>
         <!-- Options -->
         <!-- <Options /> -->
+        <b-btn class="times-button" v-b-toggle.collapse-1 variant="dark">Show Round Times</b-btn>
         <b-btn class="reset-button" @click="finishSet()">
             Reset
         </b-btn>
@@ -139,6 +149,8 @@ export default {
             explanationNotice: 'Welcome, this app is for guided breathing. To use it, it helps to be familiar with the Wim Hof method',
             showAlert: true,
             activeLoop: false,
+            // round times
+            roundTimes: [],
             // audio
             soundActive: true,
             breathInSound,
@@ -366,6 +378,8 @@ export default {
             if ( this.round.phase !== this.phases[2]) {
                 // log previous round time
                 this.previousRoundTime = this.formattedElapsedTime
+                // add to round times list
+                this.roundTimes.push({ round: this.round.number, time: this.previousRoundTime})
                 // reset stopwatch
                 this.stopStopwatch()
                 this.resetStopwatch()
@@ -395,7 +409,6 @@ export default {
                 // adjust round object
                 this.round.phase = this.phases[3]
                 // audio cue
-                console.log("where's breath out?")
                 this.playBreathOut()
                 // reset stopwatch
                 this.stopStopwatch()
