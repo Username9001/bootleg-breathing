@@ -1,5 +1,11 @@
 <template>
     <div v-if="isLoaded">
+        <!-- Explanation Alert -->
+        <b-alert v-model="showAlert" class="explanation-alert" variant="info" dismissible>
+            <div>
+                {{ explanationNotice }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae sequi, totam deserunt nostrum reprehenderit repellat voluptate veniam ea aut atque!
+            </div>
+        </b-alert>
         <!-- Previous round time -->
         <div 
             class="previous-round-time"
@@ -129,17 +135,20 @@ const tibetan = require("@/assets/sounds/music/Tibetan.mp3").default;
 export default {
     data() {
         return {
+            // explanation alert
+            explanationNotice: 'Welcome, this app is for guided breathing. To use it, it helps to be familiar with the Wim Hof method',
+            showAlert: true,
             activeLoop: false,
             // audio
             soundActive: true,
             breathInSound,
             breathOutSound,
-            chimesActive: true,
+            chimesActive: false,
             chimeLow,
             chimeHigh,
             voiceActive: false,
             musicActive: true,
-            selectedMusic: japaneseWaterGarden,
+            selectedMusic: tibetan,
             selectableTracks: [
                 { 
                     value: ancientAtonal,
@@ -220,6 +229,7 @@ export default {
     },
     mounted() {
         this.isLoaded = true
+        // alert(this.explanationNotice)
     },
     methods: {
         // reset

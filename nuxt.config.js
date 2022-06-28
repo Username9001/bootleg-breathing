@@ -56,7 +56,7 @@ export default {
       fileName: 'icon.png',
     },
     meta: {
-      theme_color: '#00d4ff',
+      theme_color: '##FFAF00',
     }
   },
 
@@ -73,6 +73,12 @@ export default {
       // options: {
       //   volume: 0.25
       // }
+    },
+    japaneseWaterGarden: {
+      src: "./assets/sound/music/JapaneseWaterGarden.mp3",
+      options: {
+        volume: 0.25
+      }
     },
   },
 
