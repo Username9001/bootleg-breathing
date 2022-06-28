@@ -7,11 +7,13 @@
             </div>
         </b-alert>
         <!-- Previous round time -->
+        <!-- <b-btn class="times-button" v-b-toggle.collapse-1 variant="dark">Show Round Times</b-btn> -->
         <div 
             class="previous-round-time"
-        >
-            <p class="text-center">
+        >        
+            <p v-b-toggle.collapse-1 class="text-center">
                 <i>Previous round: {{ previousRoundTime }}</i>
+                <label>(Click to view all rounds)</label>
             </p>
             <!-- round times list -->
         </div>
@@ -72,7 +74,6 @@
         </div>
         <!-- Options -->
         <!-- <Options /> -->
-        <b-btn class="times-button" v-b-toggle.collapse-1 variant="dark">Show Round Times</b-btn>
         <b-btn class="reset-button" @click="finishSet()">
             Reset
         </b-btn>

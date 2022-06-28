@@ -106,8 +106,10 @@ hr {
         font-size: 24px;
         opacity: 0.75;
     }
-    ul {
-
+    label {
+        display: block;
+        font-size: 10px;
+        margin-top: -6px;
     }
 }
 
