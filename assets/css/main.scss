@@ -244,6 +244,11 @@ hr {
     border: 1px solid #4e555b;
     
 }
+
+.border-bottom {
+    border-bottom: 1px solid #fff;
+}
+
 @keyframes pulse {
     0% {
         transform: scale(.1);

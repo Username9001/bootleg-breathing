@@ -88,15 +88,15 @@
         <b-modal id="modal-1" title="Options" header-bg-variant="dark" body-bg-variant="dark" footer-bg-variant="dark" text-variant="dark" shadow>
             <div class="px-3 py-2 accordion">
                 <div class="option-buttons row">
+                    <!-- Sounds -->
+                    <b-form-group class="my-0 text-center">
+                        <h4 class="border-bottom py-2">
+                            Sounds
+                        </h4>
+                    </b-form-group>
                     <b-btn class="" @click="toggleSound()">
                         Breathing sound
                         <small v-if="soundActive">
-                            &#10003;
-                        </small>
-                    </b-btn>
-                    <b-btn class="" @click="toggleChimes()">
-                        Chime sounds
-                        <small v-if="chimesActive">
                             &#10003;
                         </small>
                     </b-btn>
@@ -106,21 +106,14 @@
                             &#10003;
                         </small>
                     </b-btn>
-                    <b-form-group description="select a track">
-                        <b-form-select v-if="musicActive" v-model="selectedMusic" :options="selectableTracks"></b-form-select>
+                    <b-form-group v-if="musicActive" description="select a track">
+                        <b-form-select v-model="selectedMusic" :options="selectableTracks"></b-form-select>
                     </b-form-group>
-                    <b-btn v-if="musicActive" class="" @click="checkMusic()">
-                        Check Music
-                    </b-btn>
-                    <!-- <b-btn @click="stopStopwatch()">
-                        Stop stopwatch
-                    </b-btn> -->
-                    <!-- <b-btn class="" @click="toggleVoice()">
-                        Voice (N/A)
-                        <small v-if="voiceActive">
-                            &#10003;
-                        </small>
-                    </b-btn> -->
+                    <b-form-group class="my-0 text-center">
+                        <h4 class="border-bottom py-2">
+                            Cycle / Timing
+                        </h4>
+                    </b-form-group>
                     <b-form-group>
                         <label for="cycleAmount">Breath Cycles (20-60)</label>
                         <b-form-spinbutton id="cycleAmount" v-model="cycleAmount" min="20" max="60"></b-form-spinbutton>
