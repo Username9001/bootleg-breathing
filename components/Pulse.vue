@@ -81,7 +81,7 @@
         <!-- <Options /> -->
         <div class="bottom-buttons">
             <b-btn class="reset-button" variant="dark" @click="finishSet()">
-                Reset
+                End Set
             </b-btn>
             <b-btn v-b-modal.modal-1 class="modal-toggle" variant="dark">Options</b-btn>
         </div>
@@ -247,20 +247,22 @@ export default {
     methods: {
         // reset
         finishSet() {
-            this.round.number = 0
-            this.round.phase = this.phases[4]
-            this.activeLoop = false
-            // reset stopwatch
-            this.stopStopwatch()
-            this.resetStopwatch()
-            // stop music
-            this.stopMusic()
-            // reset vars
-            this.timer = undefined
-            this.formattedElapsedTime = undefined
-            this.deepHoldAmount = 15
-            this.cycleAmount = 40
-            console.log("set finished", this.round.phase)
+            if(confirm("are you sure you want to finish the set?")) {
+                this.round.number = 0
+                this.round.phase = this.phases[4]
+                this.activeLoop = false
+                // reset stopwatch
+                this.stopStopwatch()
+                this.resetStopwatch()
+                // stop music
+                this.stopMusic()
+                // reset vars
+                this.timer = undefined
+                this.formattedElapsedTime = undefined
+                this.deepHoldAmount = 15
+                this.cycleAmount = 40
+                console.log("set finished", this.round.phase)
+            }
         },
         // sounds
         toggleSound() {

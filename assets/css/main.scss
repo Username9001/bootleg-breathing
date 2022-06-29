@@ -238,6 +238,11 @@ hr {
 }
 #modal-1 {
     opacity: 0.9 !important;
+    .modal-footer {
+        .btn-secondary {
+            display: none;
+        }
+    }
 }
 .bg-dark {
     background: #000 !important;
