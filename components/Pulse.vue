@@ -22,12 +22,14 @@
             <h4 class="text-center">Round {{ round.number }}</h4>
             <p v-if="round.phase === 'breathHold'">{{ formattedElapsedTime }}</p>
             <b-collapse id="collapse-1" class="text-center">
-                <ul>
-                    All Round Times:
-                    <li v-for="roundTime in roundTimes" :key="roundTime.round">
-                        Round #{{ roundTime.round }} - {{ roundTime.time }}
-                    </li>
-                </ul>
+                <div class="times-list">
+                    <ul>
+                        All Round Times:
+                        <li v-for="roundTime in roundTimes" :key="roundTime.round">
+                            Round #{{ roundTime.round }} - {{ roundTime.time }}
+                        </li>
+                    </ul>
+                </div>
                 <b-btn @click="clearRoundTimes()">
                     Clear round times
                 </b-btn>
@@ -80,7 +82,7 @@
         <b-btn class="reset-button" variant="dark" @click="finishSet()">
             Reset
         </b-btn>
-        <b-btn v-b-modal.modal-1 class="modal-toggle" variant="dark">Change Options</b-btn>
+        <b-btn v-b-modal.modal-1 class="modal-toggle" variant="dark">Options</b-btn>
         <b-modal id="modal-1" title="Options" header-bg-variant="dark" body-bg-variant="dark" footer-bg-variant="dark" text-variant="dark" shadow>
             <div class="px-3 py-2 accordion">
                 <div class="option-buttons row">
@@ -379,7 +381,7 @@ export default {
         // deep breath in phase
         deepBreathPhase() {
             // check if not already running
-            if ( this.round.phase !== this.phases[2]) {
+            if ( this.round.phase !== this.phases[2] ) {
                 // log previous round time
                 this.previousRoundTime = this.formattedElapsedTime
                 // add to round times list

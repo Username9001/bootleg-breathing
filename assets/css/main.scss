@@ -124,12 +124,26 @@ hr {
         font-weight: 700;
     }
     #collapse-1 {
-        height: 300px;
+        // height: calc(100vh - 95px);
+        position: absolute;
+        width: 100%;
         background: #000;
         opacity: 0.9;
         z-index: 2;
         padding: 18px;
-        overflow-y: scroll;
+        top: 42px;
+        overflow: hidden;
+        .times-list {
+            ul {
+                display: block;
+                min-height: 240px;
+                max-height: calc(100vh - 195px);
+                overflow-y: scroll;
+            }
+            li {
+                display: block;
+            }
+        }
     }
 }
 
