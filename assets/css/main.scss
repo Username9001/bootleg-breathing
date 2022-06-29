@@ -79,8 +79,12 @@ hr {
 .bottom-buttons {
     position: absolute;
     width: calc(100% - 40px);
+    // @media (min-width: 360px) {
+    //     width: 320px;
+    // }
     max-width: 320px;
     left: 20px;
+    right: 20px;
     // right: 20px;
     margin: auto;
     bottom: 20px;
