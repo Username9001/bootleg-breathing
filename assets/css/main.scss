@@ -76,20 +76,17 @@ hr {
     }
 }
 
-.modal-toggle {
+.bottom-buttons {
     position: absolute;
-    bottom: 24px;
-    left: 24px;
-}
-.times-button {
-    position: absolute;
-    bottom: 72px;
-    left: 24px;
-}
-.reset-button {
-    position: absolute;
-    bottom: 24px;
-    right: 24px;
+    width: 100%;
+    max-width: 320px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 20px;
+    .reset-button {
+        float: right;
+    }
 }
 .option-buttons {
     .btn, .form-group {

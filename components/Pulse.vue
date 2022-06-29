@@ -79,10 +79,12 @@
         </div>
         <!-- Options -->
         <!-- <Options /> -->
-        <b-btn class="reset-button" variant="dark" @click="finishSet()">
-            Reset
-        </b-btn>
-        <b-btn v-b-modal.modal-1 class="modal-toggle" variant="dark">Options</b-btn>
+        <div class="bottom-buttons">
+            <b-btn class="reset-button" variant="dark" @click="finishSet()">
+                Reset
+            </b-btn>
+            <b-btn v-b-modal.modal-1 class="modal-toggle" variant="dark">Options</b-btn>
+        </div>
         <b-modal id="modal-1" title="Options" header-bg-variant="dark" body-bg-variant="dark" footer-bg-variant="dark" text-variant="dark" shadow>
             <div class="px-3 py-2 accordion">
                 <div class="option-buttons row">
