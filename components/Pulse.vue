@@ -115,12 +115,18 @@
                     </b-form-group>
                     <b-form-group>
                         <label class="is-block text-center" for="cycleAmount">Number of breaths per cycle (20-60)</label>
-                        <b-form-input v-model="cycleAmount" type="number" class="number-input mb-2" variant="dark" min="20" max="60"></b-form-input>
+                        <!-- <b-form-input v-model="cycleAmount" type="number" class="number-input mb-2" variant="dark" min="20" max="60"></b-form-input> -->
+                        <h5 class="text-center">
+                            {{ cycleAmount }}
+                        </h5>
                         <b-form-input v-model="cycleAmount" type="range" class="slider-input" min="20" max="60"></b-form-input>
                     </b-form-group>
                     <b-form-group>
                         <label class="is-block text-center" for="deepHoldAmount">Deep breath retention time (10-30s)</label>
-                        <b-form-input v-model="deepHoldAmount" type="number" class="number-input mb-2" variant="dark" min="10" max="30"></b-form-input>
+                        <!-- <b-form-input v-model="deepHoldAmount" type="number" class="number-input mb-2" variant="dark" min="10" max="30"></b-form-input> -->
+                        <h5 class="text-center">
+                            {{ deepHoldAmount }}
+                        </h5>
                         <b-form-input v-model="deepHoldAmount" type="range" class="slider-input" min="10" max="30"></b-form-input>
                     </b-form-group>
                 </div>

@@ -35,6 +35,7 @@ body {
     // light mode, overruled below for dark
     background: $bg-light;
     color: $text-light;
+    overflow: hidden;
 }
 
 p {
@@ -67,10 +68,20 @@ hr {
     padding: 0;
     max-width: 100% !important;
 }
-.custom-range::-moz-range-thumb {
+.custom-range::-webkit-slider-thumb {
     background-color: rgb(255, 175, 0);
     box-shadow: 0 0 5px #fff;
-}
+  }
+  
+  .custom-range::-moz-range-thumb {
+    background-color: rgb(255, 175, 0);
+    box-shadow: 0 0 5px #fff;
+  }
+  
+  .custom-range::-ms-thumb {
+    background-color: rgb(255, 175, 0);
+    box-shadow: 0 0 5px #fff;
+  }
 
 // end of bootstrap customization
 
@@ -271,10 +282,15 @@ hr {
     border: none;
 }
 #modal-1 {
+    color: #fff;
+    opacity: 0.9 !important;
+    width: 100%;
+    max-width: 520px;
+    padding-left: 0 !important;
+    // padding-right: 17px;
     .modal-dialog {
         margin: 0 auto;
     }
-    opacity: 0.9 !important;
     .modal-footer {
         .btn-secondary {
             display: none;
