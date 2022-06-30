@@ -1,7 +1,7 @@
 <template>
     <div v-if="isLoaded">
         <!-- Explanation Alert -->
-        <b-alert v-model="showAlert" class="explanation-alert" variant="info" dismissible>
+        <b-alert v-model="showAlert" class="explanation-alert" variant="light" dismissible>
             <div>
                 {{ explanationNotice }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae sequi, totam deserunt nostrum reprehenderit repellat voluptate veniam ea aut atque!
             </div>
