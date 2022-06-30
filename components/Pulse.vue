@@ -115,16 +115,12 @@
                     </b-form-group>
                     <b-form-group>
                         <label class="is-block text-center" for="cycleAmount">Breath Cycles (20-60)</label>
-                        <h5 class="text-center">
-                            {{ cycleAmount }}
-                        </h5>
+                        <b-form-input v-model="cycleAmount" type="number" class="number-input" variant="dark" min="20" max="60"></b-form-input>
                         <b-form-input v-model="cycleAmount" type="range" variant="dark" min="20" max="60"></b-form-input>
                     </b-form-group>
                     <b-form-group>
                         <label class="is-block text-center" for="deepHoldAmount">Breath Hold Time (10-30s)</label>
-                        <h5 class="text-center">
-                            {{ deepHoldAmount }}
-                        </h5>
+                        <b-form-input v-model="deepHoldAmount" type="number" class="number-input" variant="dark" min="10" max="30"></b-form-input>
                         <b-form-input v-model="deepHoldAmount" type="range" min="10" max="30"></b-form-input>
                     </b-form-group>
                 </div>
