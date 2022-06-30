@@ -117,10 +117,12 @@
                     <b-form-group>
                         <label for="cycleAmount">Breath Cycles (20-60)</label>
                         <b-form-spinbutton id="cycleAmount" v-model="cycleAmount" min="20" max="60"></b-form-spinbutton>
+                        <b-form-input v-model="cycleAmount" type="range" min="20" max="60"></b-form-input>
                     </b-form-group>
                     <b-form-group>
                         <label for="deepHoldAmount">Breath Hold Time (10-30s)</label>
                         <b-form-spinbutton id="deepHoldAmount" v-model="deepHoldAmount" min="10" max="30"></b-form-spinbutton>
+                        <b-form-input v-model="deepHoldAmount" type="range" min="10" max="30"></b-form-input>
                     </b-form-group>
                 </div>
             </div>
@@ -129,6 +131,8 @@
 </template>
 
 <script>
+// import bFormSlider from 'vue-bootstrap-slider/es/form-slider';
+
 const breathInSound = require("@/assets/sounds/BreathInSound.mp3").default;
 const breathOutSound = require("@/assets/sounds/BreathOutSound.mp3").default;
 

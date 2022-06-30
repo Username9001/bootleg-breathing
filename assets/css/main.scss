@@ -1,5 +1,6 @@
 // font
-@import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gantari:wght@500&display=swap');
+$main-font: 'Gantari', sans-serif;
 
 // variables
 $breath-time: 3.5s;
@@ -24,7 +25,7 @@ html {
     height: 100%;
     user-select: none;
     overflow-x: hidden;
-    font-family: 'Anek Malayalam', sans-serif;
+    font-family: $main-font;
 }
 
 body {
