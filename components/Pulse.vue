@@ -3,7 +3,7 @@
         <!-- Explanation Alert -->
         <b-alert v-model="showAlert" class="explanation-alert" variant="light" dismissible>
             <div>
-                {{ explanationNotice }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae sequi, totam deserunt nostrum reprehenderit repellat voluptate veniam ea aut atque!
+                {{ explanationNotice }}
             </div>
         </b-alert>
         <!-- Previous round time -->
@@ -105,7 +105,7 @@
                             &#10003;
                         </small>
                     </b-btn>
-                    <b-form-group v-if="musicActive" description="select a track">
+                    <b-form-group v-if="musicActive" class="music-select" description="select a track">
                         <b-form-select v-model="selectedMusic" :options="selectableTracks"></b-form-select>
                     </b-form-group>
                     <b-form-group class="my-0 text-center">
@@ -114,14 +114,14 @@
                         </h4>
                     </b-form-group>
                     <b-form-group>
-                        <label class="is-block text-center" for="cycleAmount">Breath Cycles (20-60)</label>
-                        <b-form-input v-model="cycleAmount" type="number" class="number-input" variant="dark" min="20" max="60"></b-form-input>
-                        <b-form-input v-model="cycleAmount" type="range" variant="dark" min="20" max="60"></b-form-input>
+                        <label class="is-block text-center" for="cycleAmount">Number of breaths per cycle (20-60)</label>
+                        <b-form-input v-model="cycleAmount" type="number" class="number-input mb-2" variant="dark" min="20" max="60"></b-form-input>
+                        <b-form-input v-model="cycleAmount" type="range" class="slider-input" min="20" max="60"></b-form-input>
                     </b-form-group>
                     <b-form-group>
-                        <label class="is-block text-center" for="deepHoldAmount">Breath Hold Time (10-30s)</label>
-                        <b-form-input v-model="deepHoldAmount" type="number" class="number-input" variant="dark" min="10" max="30"></b-form-input>
-                        <b-form-input v-model="deepHoldAmount" type="range" min="10" max="30"></b-form-input>
+                        <label class="is-block text-center" for="deepHoldAmount">Deep breath retention time (10-30s)</label>
+                        <b-form-input v-model="deepHoldAmount" type="number" class="number-input mb-2" variant="dark" min="10" max="30"></b-form-input>
+                        <b-form-input v-model="deepHoldAmount" type="range" class="slider-input" min="10" max="30"></b-form-input>
                     </b-form-group>
                 </div>
             </div>
@@ -148,7 +148,7 @@ export default {
     data() {
         return {
             // explanation alert
-            explanationNotice: 'Welcome, this app is for guided breathing. To use it, it helps to be familiar with the Wim Hof method',
+            explanationNotice: 'Welcome, this app is meant as a support for guided breathing. It loosely follows the Wim Hof Method, first taking around 40 deep breaths in and out. Then on the last breath out, release and hold for as long as possible. Then take a deep breath in and hold for approximately 15 seconds. After that, repeat this cycle as many times as you prefer. In this app, you can adjust these times to your own preference.',
             showAlert: true,
             activeLoop: false,
             // round times
