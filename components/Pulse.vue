@@ -131,8 +131,6 @@
 </template>
 
 <script>
-// import bFormSlider from 'vue-bootstrap-slider/es/form-slider';
-
 const breathInSound = require("@/assets/sounds/BreathInSound.mp3").default;
 const breathOutSound = require("@/assets/sounds/BreathOutSound.mp3").default;
 
