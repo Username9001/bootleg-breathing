@@ -118,7 +118,7 @@
                         <h5 class="text-center">
                             {{ cycleAmount }}
                         </h5>
-                        <b-form-input v-model="cycleAmount" type="range" min="20" max="60"></b-form-input>
+                        <b-form-input v-model="cycleAmount" type="range" variant="dark" min="20" max="60"></b-form-input>
                     </b-form-group>
                     <b-form-group>
                         <label class="is-block text-center" for="deepHoldAmount">Breath Hold Time (10-30s)</label>

@@ -62,9 +62,16 @@ hr {
     display: block !important;
 }
 
+// bootstrap customization
 .container {
     padding: 0;
 }
+.custom-range::-moz-range-thumb {
+    background-color: rgb(255, 175, 0);
+    box-shadow: 0 0 5px #fff;
+}
+
+// end of bootstrap customization
 
 .explanation-alert {
     display: flex;
