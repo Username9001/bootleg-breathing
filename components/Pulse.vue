@@ -71,9 +71,20 @@
         </b-container>
         <!-- Instructions -->
         <div class="instructions">
-            <h5 v-if="round.phase === 'breathCycle'">Breathe deeply for {{ cycleAmount }} times (click the circle to end the cycle)</h5>
+            <h5 v-if="round.phase === 'breathCycle'">
+                Breathe deeply for {{ cycleAmount }} times 
+                <small>
+                    (click the circle to end the cycle)
+                </small>
+            </h5>
             <h5 v-if="round.phase === 'breathHold'">Let go and hold your breath</h5>
-            <h5 v-if="round.phase === 'deepBreath'">Take a deep breath in and hold for {{ deepHoldAmount }} seconds (click to skip)</h5>
+            <h5 v-if="round.phase === 'deepBreath'">
+                Take a deep breath in and hold for {{ deepHoldAmount }} seconds 
+                <br>
+                <small>
+                    (click to skip)
+                </small>
+            </h5>
             <h5 v-if="round.phase === 'smallPause'">Get back into that rhythm</h5>
         </div>
         <!-- Options -->
@@ -109,7 +120,7 @@
                         </b-btn>
                         <b-form-group v-if="musicOn" class="music-select" description="select a track">
                             <b-form-select v-model="selectedMusic" :options="selectableTracks"></b-form-select>
-                            <b-btn @click="sampleMusic()">
+                            <!-- <b-btn @click="sampleMusic()">
                                 Play music
                             </b-btn>
                             <b-btn @click="stopMusic()">
@@ -117,7 +128,7 @@
                             </b-btn>
                             <div v-if="currentMusic">
                                 {{ currentMusic.duration }}
-                            </div>
+                            </div> -->
                         </b-form-group>
                     </b-collapse>
                     <b-form-group v-b-toggle.numeric-input class="my-0 text-center">
