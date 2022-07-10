@@ -15,8 +15,9 @@
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.15.1",
-    "nuxt": "^2.15.7",
-    "vue-bootstrap-slider": "^2.1.8"
+    "nuxt": "^2.13.3",
+    "vue-bootstrap-slider": "^2.1.8",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",

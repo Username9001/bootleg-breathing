@@ -71,7 +71,7 @@
         </b-container>
         <!-- Instructions -->
         <div class="instructions">
-            <h5 v-if="round.phase === 'breathCycle'">Breath deeply for {{ cycleAmount }} times (click the circle to end the cycle)</h5>
+            <h5 v-if="round.phase === 'breathCycle'">Breathe deeply for {{ cycleAmount }} times (click the circle to end the cycle)</h5>
             <h5 v-if="round.phase === 'breathHold'">Let go and hold your breath</h5>
             <h5 v-if="round.phase === 'deepBreath'">Take a deep breath in and hold for {{ deepHoldAmount }} seconds (click to skip)</h5>
             <h5 v-if="round.phase === 'smallPause'">Get back into that rhythm</h5>
@@ -88,47 +88,68 @@
             <div class="px-3 py-2 accordion">
                 <div class="option-buttons row">
                     <!-- Sounds -->
-                    <b-form-group class="my-0 text-center">
-                        <h4 class="border-bottom py-2">
+                    <b-form-group v-b-toggle.sound-input class="my-0 text-center">
+                        <h4 class="border-bottom pb-4 mb-0">
                             Sounds
+                            <span>&#9660;</span>
                         </h4>
                     </b-form-group>
-                    <b-btn class="" @click="toggleSound()">
-                        Breathing sound
-                        <small v-if="soundActive">
-                            &#10003;
-                        </small>
-                    </b-btn>
-                    <b-btn class="" @click="toggleMusic()">
-                        Music
-                        <small v-if="musicActive">
-                            &#10003;
-                        </small>
-                    </b-btn>
-                    <b-form-group v-if="musicActive" class="music-select" description="select a track">
-                        <b-form-select v-model="selectedMusic" :options="selectableTracks"></b-form-select>
-                    </b-form-group>
-                    <b-form-group class="my-0 text-center">
-                        <h4 class="border-bottom py-2">
+                    <b-collapse id="sound-input" visible class="m-auto">
+                        <b-btn class="options-button" @click="toggleSound()">
+                            Breathing sound
+                            <small v-if="soundActive">
+                                &#10003;
+                            </small>
+                        </b-btn>
+                        <b-btn class="options-button" @click="toggleMusic()">
+                            Music
+                            <small v-if="musicOn">
+                                &#10003;
+                            </small>
+                        </b-btn>
+                        <b-form-group v-if="musicOn" class="music-select" description="select a track">
+                            <b-form-select v-model="selectedMusic" :options="selectableTracks"></b-form-select>
+                            <b-btn @click="sampleMusic()">
+                                Play music
+                            </b-btn>
+                            <b-btn @click="stopMusic()">
+                                stop music
+                            </b-btn>
+                            <div v-if="currentMusic">
+                                {{ currentMusic.duration }}
+                            </div>
+                        </b-form-group>
+                    </b-collapse>
+                    <b-form-group v-b-toggle.numeric-input class="my-0 text-center">
+                        <h4 class="border-bottom py-4 mb-0">
                             Cycle / Timing
+                            <span>&#9660;</span>
                         </h4>
                     </b-form-group>
-                    <b-form-group>
-                        <label class="is-block text-center" for="cycleAmount">Number of breaths per cycle (20-60)</label>
-                        <!-- <b-form-input v-model="cycleAmount" type="number" class="number-input mb-2" variant="dark" min="20" max="60"></b-form-input> -->
-                        <h5 class="text-center">
-                            {{ cycleAmount }}
-                        </h5>
-                        <b-form-input v-model="cycleAmount" type="range" class="slider-input" min="20" max="60"></b-form-input>
-                    </b-form-group>
-                    <b-form-group>
-                        <label class="is-block text-center" for="deepHoldAmount">Deep breath retention time (10-30s)</label>
-                        <!-- <b-form-input v-model="deepHoldAmount" type="number" class="number-input mb-2" variant="dark" min="10" max="30"></b-form-input> -->
-                        <h5 class="text-center">
-                            {{ deepHoldAmount }}
-                        </h5>
-                        <b-form-input v-model="deepHoldAmount" type="range" class="slider-input" min="10" max="30"></b-form-input>
-                    </b-form-group>
+                    <b-collapse id="numeric-input" visible class="m-auto">
+                        <b-form-group>
+                            <label class="is-block text-center" for="cycleAmount">Number of breaths per cycle (20-60)</label>
+                            <h5 class="text-center">
+                                {{ cycleAmount }}
+                            </h5>
+                            <b-form-input v-model="cycleAmount" type="range" class="slider-input" min="20" max="60"></b-form-input>
+                        </b-form-group>
+                        <b-form-group>
+                            <label class="is-block text-center" for="deepHoldAmount">Deep breath retention time (10-30s)</label>
+                            <h5 class="text-center">
+                                {{ deepHoldAmount }} s
+                            </h5>
+                            <b-form-input v-model="deepHoldAmount" type="range" class="slider-input" min="10" max="30"></b-form-input>
+                        </b-form-group>
+                        <b-form-group>
+                            <label class="is-block text-center" for="pauseDuration">Pause duration between sets</label>
+                            <h5 class="text-center">
+                                {{ pauseDuration }} s
+                            </h5>
+                            <b-form-input v-model="pauseDuration" type="range" class="slider-input" min="2.5" max="8" step=".5"></b-form-input>
+                        </b-form-group>
+                    </b-collapse>
+
                 </div>
             </div>
         </b-modal>
@@ -149,6 +170,7 @@ const japaneseWaterGarden = require("@/assets/sounds/music/JapaneseWaterGarden.m
 const oldWaterMill = require("@/assets/sounds/music/OldWaterMill.mp3").default;
 const space = require("@/assets/sounds/music/Space.mp3").default;
 const tibetan = require("@/assets/sounds/music/Tibetan.mp3").default;
+const viking = require("@/assets/sounds/music/Viking1.mp3").default;
 
 export default {
     data() {
@@ -167,8 +189,8 @@ export default {
             chimeLow,
             chimeHigh,
             voiceActive: false,
-            musicActive: true,
-            selectedMusic: tibetan,
+            musicOn: true,
+            selectedMusic: viking,
             selectableTracks: [
                 { 
                     value: ancientAtonal,
@@ -198,7 +220,10 @@ export default {
                 { 
                     value: tibetan,
                     text: 'Tibetan',
-                    
+                },
+                { 
+                    value: viking,
+                    text: 'Viking',
                 }
             ],
             // page load
@@ -209,6 +234,7 @@ export default {
             deepBreathTime: 0,
             deepHoldAmount: 15,
             breathTime: 3500,
+            pauseDuration: 2.5,
             // stopwatch
             elapsedTime: 0,
             timer: undefined,
@@ -233,6 +259,9 @@ export default {
                 'end'
             ],
             previousRoundTime: undefined,
+            activeModal: false,
+            // TESTING
+            musicTime: 0,
         }
     },
     computed: {
@@ -245,6 +274,26 @@ export default {
         currentMusic() {
             const currentTrack = new Audio(this.selectedMusic)
             return currentTrack
+        },
+        musicTimestamp() {
+            const music = this.currentMusic
+            const timestamp = music.currentTime
+            console.log('time', timestamp)
+            return timestamp
+        },
+    },
+    watch: {
+        selectedMusic(newValue) {
+            if ( newValue ) {
+                console.log('the track you selected is:', newValue )
+                this.stopMusic()
+            }
+        },
+        musicTime(newValue) {
+            if ( newValue ) {
+                console.log('timestamp:', this.musicTimestamp)
+                // this.musicTimestamp
+            }
         }
     },
     mounted() {
@@ -325,23 +374,37 @@ export default {
         },
         // Music
         toggleMusic() {
-            this.musicActive = !this.musicActive
-            console.log(this.musicActive)
+            this.musicOn = !this.musicOn
+            console.log(this.musicOn)
         },
         checkMusic() {
             // const currentMusic = new Audio(this.selectedMusic)
-            if ( this.musicActive === false ) {
+            if ( this.musicOn === false ) {
                 this.currentMusic.pause()
                 // this.stopMusic()
             }
-            if ( this.musicActive === true ) {
+            if ( this.musicOn === true ) {
                 // this.currentMusic.currentTime = 0
                 this.currentMusic.play()
             }
         },
-        stopMusic() {
+        sampleMusic() {
             this.currentMusic.pause()
-            this.currentMusic.currentTime = 0
+            this.playMusic()
+            // setTimeout( () => {
+            //     this.stopMusic()
+            // }, 5000 )
+        },
+        playMusic() {
+            if ( this.currentMusic.currentTime === 0 ) {
+                this.currentMusic.play()
+            }
+        },
+        stopMusic() {
+            if ( this.currentMusic.currentTime !== 0 ) {
+                this.currentMusic.pause()
+                this.currentMusic.currentTime = 0
+            }
         },
         // go through phases
         // breath cycle phase
@@ -358,17 +421,15 @@ export default {
                     this.checkMusic()
                     // start loop
                     this.activeLoop = true
-                    // setTimeout( () => {
-                        // start breath
                     this.breathingLoop()
-                        // console.log('breath cycle phase')
-                    // }, 20 )
                 }
         },
         // breath hold phase
         breathHoldPhase() {
             // check if not already running
             if ( this.round.number !== 0 && this.round.phase !== this.phases[1]) {
+                // check the music
+                this.checkMusic()
                 // end breath loop
                 this.activeLoop = false
                 // adjust round object
@@ -376,15 +437,14 @@ export default {
                 // start stopwatch
                 this.startStopwatch()
                 // console
-                // setTimeout( () => {
-                //     console.log('breath hold phase')
-                // }, 200 )
             }
         },
         // deep breath in phase
         deepBreathPhase() {
             // check if not already running
             if ( this.round.phase !== this.phases[2] ) {
+                // check the music
+                this.checkMusic()
                 // log previous round time
                 this.previousRoundTime = this.formattedElapsedTime
                 // add to round times list
@@ -415,6 +475,8 @@ export default {
         smallPausePhase() {
             // check if not already running
             if ( this.round.phase !== this.phases[3]) {
+                // check the music
+                this.checkMusic()
                 // adjust round object
                 this.round.phase = this.phases[3]
                 // audio cue
@@ -425,7 +487,7 @@ export default {
                 // start a new round
                 setTimeout(() => {
                     this.breathCyclePhase()
-                }, 2500)
+                }, this.pauseDuration * 1000)
             }
         },
         // Breathing cycle method

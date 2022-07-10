@@ -9,6 +9,10 @@ $btn-color: radial-gradient(circle, rgba(255,255,255,0) 0%, rgb(255, 255, 255) 0
 // main button
 $main-button-height: 250px;
 
+// colors
+$main-orange: rgb(255, 175, 0);
+$highlight-orange: rgb(255, 228, 169);
+
 // dark-mode
 $bg-dark: #2d2d2d;
 $text-dark: #fff;
@@ -119,10 +123,7 @@ hr {
 .option-buttons {
     .btn, .form-group {
         margin: 24px auto;
-        width: 90%;
-    }
-    .btn, .music-select {
-        max-width: 220px;
+        width: 100%;
     }
     .form-group .btn {
         margin: 0;
@@ -137,6 +138,9 @@ hr {
         display: block;
         max-width: 70%;
         margin: auto;
+    }
+    span {
+        font-size: 18px;
     }
 }
 
@@ -282,6 +286,13 @@ hr {
     border: none;
 }
 #modal-1 {
+    @media (min-width: 420px) {
+        width: 420px;
+        display: block;
+        margin: auto;
+        left: 0;
+        right: 0;
+    }
     color: #fff;
     opacity: 0.9 !important;
     width: 100%;
@@ -296,12 +307,15 @@ hr {
             display: none;
         }
     }
-    @media (min-width: 420px) {
-        width: 420px;
-        display: block;
-        margin: auto;
-        left: 0;
-        right: 0;
+    h4 {
+        color: $main-orange;
+        font-weight: 700;
+        text-shadow: 0 0 42px $main-orange;
+        opacity: 1;
+        &:hover, &:active {
+            color: #fff;
+            text-shadow: 0 0 42px $main-orange;
+        }
     }
 }
 .bg-dark {
