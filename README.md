@@ -3,18 +3,16 @@
 ## To Do
 
 ### UI
- - toggle dark/light mode
- - toggle voice
- - toggle chimes
- - end button
- - reset button
+ - Shorten welcome message / description
 
 ### Logic
- - use (local) storage or cookies to keep track of different round times, to display after set
- - stop sounds when entering breathhold (currently finishing 'breath out' during breathhold)
+ - "don't show again" on welcome message
+ - Implement PWA download prompt to relieve server load -> also make it so that the application does not work in the browser itself
+ - Remove timing bug (options: debounce, revise logic)
 
 ### Sound recordings
- - 'breath in'
+ - make sound recordings
+ <!-- - 'breath in'
  - 'breath out'
  - 'in'
  - 'out'
@@ -23,4 +21,4 @@
  - 'and let it go'
  - 'take a deep breath in and hold for 15 seconds'
  - '3, 2, 1, and back into that rhythm'
- - chimes (for during breathhold)
+ - chimes (for during breathhold) -->
