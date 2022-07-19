@@ -4,6 +4,12 @@
         <b-alert v-model="showAlert" class="explanation-alert" variant="light" dismissible>
             <div>
                 {{ explanationNotice }}
+                <hr />
+                {{ developmentNotice }}
+                <hr />
+                <a href="https://github.com/Username9001/bootleg-breathing" target="_blank" class="github-link">
+                    Github Page
+                </a>
             </div>
         </b-alert>
         <!-- Previous round time -->
@@ -204,7 +210,8 @@ export default {
     data() {
         return {
             // explanation alert
-            explanationNotice: 'Hello, you can use this app to do guided breathing exercises.',
+            explanationNotice: 'Hello, you can use this app to do guided breathing exercises. It is meant as a free replacement for the Wim Hof Method app.',
+            developmentNotice: 'While you can use this app as is, it is still in development. If you find any issues or bugs, please let me know.',
             largeExplanation: 'Welcome, this app is meant as a support for guided breathing. It loosely follows the Wim Hof Method, first taking around 40 deep breaths in and out. Then on the last breath out, release and hold for as long as possible. Then take a deep breath in and hold for approximately 15 seconds. After that, repeat this cycle as many times as you prefer. In this app, you can adjust these times to your own preference.',
             showAlert: true,
             activeLoop: false,
