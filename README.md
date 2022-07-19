@@ -3,7 +3,6 @@
 ## To Do
 
 ### UI
- - Shorten welcome message / description
 
 ### Logic
  - "don't show again" on welcome message
