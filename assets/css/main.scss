@@ -37,8 +37,8 @@ body {
     align-items: center;
     justify-content: center;
     // light mode, overruled below for dark
-    background: $bg-light;
-    color: $text-light;
+    background: $bg-dark;
+    color: $text-dark;
     overflow: hidden;
 }
 
@@ -372,23 +372,23 @@ hr {
         border: $button-border-dark;
     }
 }
-@media ( prefers-color-scheme: light ) {
-    body {
-        background: $bg-light;
-        color: $text-light;
-    }
-    .main-button {
-        box-shadow: $button-shadow-light;
-        border: $button-border-light;
-    }
-}
+// @media ( prefers-color-scheme: light ) {
+//     body {
+//         background: $bg-light;
+//         color: $text-light;
+//     }
+//     .main-button {
+//         box-shadow: $button-shadow-light;
+//         border: $button-border-light;
+//     }
+// }
 
 .dark-mode {
     background: $bg-dark;
     color: $text-dark;
 }
 
-.light-mode {
-    background: $bg-light;
-    color: $text-light;
-}
+// .light-mode {
+//     background: $bg-light;
+//     color: $text-light;
+// }
