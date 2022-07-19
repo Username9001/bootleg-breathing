@@ -57,7 +57,7 @@ export default {
       fileName: 'icon.png',
     },
     meta: {
-      theme_color: '##FFAF00',
+      theme_color: '#FFAF00',
     }
   },
 
