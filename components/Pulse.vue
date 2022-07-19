@@ -77,12 +77,17 @@
                     (click the circle to end the cycle)
                 </small>
             </h5>
-            <h5 v-if="round.phase === 'breathHold'">Let go and hold your breath</h5>
+            <h5 v-if="round.phase === 'breathHold'">
+                Let go and hold your breath
+                <small>
+                    (click the circle when breathing in)
+                </small>
+            </h5>
             <h5 v-if="round.phase === 'deepBreath'">
                 Take a deep breath in and hold for {{ deepHoldAmount }} seconds 
                 <br>
                 <small>
-                    (click to skip)
+                    (click circle to skip)
                 </small>
             </h5>
             <h5 v-if="round.phase === 'smallPause'">Get back into that rhythm</h5>
@@ -106,18 +111,30 @@
                         </h4>
                     </b-form-group>
                     <b-collapse id="sound-input" visible class="m-auto">
-                        <b-btn class="options-button" @click="toggleSound()">
-                            Breathing sound
-                            <small v-if="soundActive">
-                                &#10003;
-                            </small>
-                        </b-btn>
-                        <b-btn class="options-button" @click="toggleMusic()">
-                            Music
-                            <small v-if="musicOn">
-                                &#10003;
-                            </small>
-                        </b-btn>
+                        <b-form-group description="Guided breath to follow">
+                            <b-btn class="options-button" @click="toggleSound()">
+                                Breathing sound
+                                <small v-if="soundActive">
+                                    &#10003;
+                                </small>
+                            </b-btn>
+                        </b-form-group>
+                        <b-form-group description="Chimes play at the last 3 breaths">
+                            <b-btn class="options-button" @click="toggleChimes()">
+                                Chime sounds
+                                <small v-if="chimesActive">
+                                    &#10003;
+                                </small>
+                            </b-btn>
+                        </b-form-group>
+                        <b-form-group description="Background track">
+                            <b-btn class="options-button" @click="toggleMusic()">
+                                Music
+                                <small v-if="musicOn">
+                                    &#10003;
+                                </small>
+                            </b-btn>
+                        </b-form-group>
                         <b-form-group v-if="musicOn" class="music-select" description="select a track">
                             <b-form-select v-model="selectedMusic" :options="selectableTracks"></b-form-select>
                             <!-- <b-btn @click="sampleMusic()">
@@ -153,7 +170,7 @@
                             <b-form-input v-model="deepHoldAmount" type="range" class="slider-input" min="10" max="30"></b-form-input>
                         </b-form-group>
                         <b-form-group>
-                            <label class="is-block text-center" for="pauseDuration">Pause duration between sets</label>
+                            <label class="is-block text-center" for="pauseDuration">Pause duration between sets (2.5-8s)</label>
                             <h5 class="text-center">
                                 {{ pauseDuration }} s
                             </h5>
@@ -187,7 +204,8 @@ export default {
     data() {
         return {
             // explanation alert
-            explanationNotice: 'Welcome, this app is meant as a support for guided breathing. It loosely follows the Wim Hof Method, first taking around 40 deep breaths in and out. Then on the last breath out, release and hold for as long as possible. Then take a deep breath in and hold for approximately 15 seconds. After that, repeat this cycle as many times as you prefer. In this app, you can adjust these times to your own preference.',
+            explanationNotice: 'Hello, you can use this app to do guided breathing exercises.',
+            largeExplanation: 'Welcome, this app is meant as a support for guided breathing. It loosely follows the Wim Hof Method, first taking around 40 deep breaths in and out. Then on the last breath out, release and hold for as long as possible. Then take a deep breath in and hold for approximately 15 seconds. After that, repeat this cycle as many times as you prefer. In this app, you can adjust these times to your own preference.',
             showAlert: true,
             activeLoop: false,
             // round times
@@ -196,12 +214,12 @@ export default {
             soundActive: true,
             breathInSound,
             breathOutSound,
-            chimesActive: false,
+            chimesActive: true,
             chimeLow,
             chimeHigh,
             voiceActive: false,
             musicOn: true,
-            selectedMusic: viking,
+            selectedMusic: tibetan,
             selectableTracks: [
                 { 
                     value: ancientAtonal,
@@ -284,6 +302,7 @@ export default {
         },
         currentMusic() {
             const currentTrack = new Audio(this.selectedMusic)
+            currentTrack.volume = .075
             return currentTrack
         },
         musicTimestamp() {
@@ -372,7 +391,7 @@ export default {
             }
         },
         playHighChime() {
-            if ( this.round.phase === this.phases[2] && this.chimesActive === true ) {
+            if ( this.round.phase === this.phases[0] && this.chimesActive === true ) {
                 const chimeHigh = new Audio(this.chimeHigh)
                 chimeHigh.play()
                 console.log('playing high chime')
@@ -513,6 +532,10 @@ export default {
             if( this.breathCycles < this.cycleAmount + 1 && this.round.phase === this.phases[0] && this.activeLoop === true ) {
                 // play sound
                 this.playSounds()
+                // play high chimes with last 3 breaths
+                if ( this.breathCycles > this.cycleAmount - 3 ) {
+                    this.playHighChime()
+                }
                 // cancel function
                 setTimeout(() => {
                     // count up
@@ -552,9 +575,9 @@ export default {
                 this.smallPausePhase()
                 // return;
             }
-            if ( this.deepBreathTime === 1 ) {
-                this.playHighChime()
-            }
+            // if ( this.deepBreathTime === 1 ) {
+            //     this.playHighChime()
+            // }
             if( this.round.phase === 'deepBreath' ) {
                 // breath hold
                 setTimeout(() => {
