@@ -125,7 +125,7 @@
                                 </small>
                             </b-btn>
                         </b-form-group>
-                        <b-form-group description="Chimes play at the last 3 breaths">
+                        <b-form-group description="Chimes play at the last breath">
                             <b-btn class="options-button" @click="toggleChimes()">
                                 Chime sounds
                                 <small v-if="chimesActive">
@@ -309,7 +309,7 @@ export default {
         },
         currentMusic() {
             const currentTrack = new Audio(this.selectedMusic)
-            currentTrack.volume = .075
+            currentTrack.volume = .1
             return currentTrack
         },
         musicTimestamp() {
@@ -540,7 +540,7 @@ export default {
                 // play sound
                 this.playSounds()
                 // play high chimes with last 3 breaths
-                if ( this.breathCycles > this.cycleAmount - 3 ) {
+                if ( this.breathCycles > this.cycleAmount - 1 ) {
                     this.playHighChime()
                 }
                 // cancel function
