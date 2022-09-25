@@ -191,9 +191,11 @@
 </template>
 
 <script>
-const breathInSound = require("@/assets/sounds/BreathInSound.mp3").default;
+// breathing sounds
+const breathInSound = require("@/assets/sounds/BreathInSoundNew.mp3").default;
 const breathOutSound = require("@/assets/sounds/BreathOutSound.mp3").default;
 
+// chimes
 const chimeLow = require("@/assets/sounds/ChimeLow.mp3").default;
 const chimeHigh = require("@/assets/sounds/ChimeHigh.mp3").default;
 
