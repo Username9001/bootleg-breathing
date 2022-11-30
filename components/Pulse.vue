@@ -574,9 +574,9 @@ export default {
         // Breath hold cycle methods (stopwatch methods)
         startStopwatch() {
             this.timer = undefined
-            this.chimeTimer = 10000;
+            this.chimeTimer = 60000;
             this.timer = setInterval(() => {
-                this.elapsedTime += 60000
+                this.elapsedTime += 1000
                 console.log('checking speed', this.formattedElapsedTime)
                 // play chimes
                 if (  this.elapsedTime % this.chimeTimer === 0 ) {

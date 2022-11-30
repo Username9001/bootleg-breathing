@@ -107,7 +107,7 @@ __webpack_require__.r(__webpack_exports__);
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/Pulse.vue?vue&type=template&id=87067c5c&
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/Pulse.vue?vue&type=template&id=12a6f73a&
 var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
@@ -392,7 +392,7 @@ var render = function render() {
 
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/Pulse.vue?vue&type=template&id=87067c5c&
+// CONCATENATED MODULE: ./components/Pulse.vue?vue&type=template&id=12a6f73a&
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/Pulse.vue?vue&type=script&lang=js&
 // breathing sounds
@@ -789,9 +789,9 @@ const viking = __webpack_require__(38).default;
     // Breath hold cycle methods (stopwatch methods)
     startStopwatch() {
       this.timer = undefined;
-      this.chimeTimer = 10000;
+      this.chimeTimer = 60000;
       this.timer = setInterval(() => {
-        this.elapsedTime += 60000;
+        this.elapsedTime += 1000;
         console.log('checking speed', this.formattedElapsedTime); // play chimes
 
         if (this.elapsedTime % this.chimeTimer === 0) {
