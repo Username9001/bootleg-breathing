@@ -1,0 +1,15 @@
+{
+  "entry": "server.js",
+  "files": {
+    "components/options.js": "components/options.js",
+    "components/pulse.js": "components/pulse.js",
+    "pages/index.js": "pages/index.js",
+    "server.js": "server.js"
+  },
+  "maps": {
+    "components/options.js": "components/options.js.map",
+    "components/pulse.js": "components/pulse.js.map",
+    "pages/index.js": "pages/index.js.map",
+    "server.js": "server.js.map"
+  }
+}
