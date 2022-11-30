@@ -125,10 +125,18 @@
                                 </small>
                             </b-btn>
                         </b-form-group>
-                        <b-form-group description="Chimes play at the last breath">
-                            <b-btn class="options-button" @click="toggleChimes()">
-                                Chime sounds
-                                <small v-if="chimesActive">
+                        <b-form-group description="1 minute intervals during hold">
+                            <b-btn class="options-button" @click="toggleLowChime()">
+                                Chime sound 1
+                                <small v-if="lowChimeActive">
+                                    &#10003;
+                                </small>
+                            </b-btn>
+                        </b-form-group>
+                        <b-form-group description="3 breaths before hold">
+                            <b-btn class="options-button" @click="toggleHighChime()">
+                                Chime sound 2
+                                <small v-if="highChimeActive">
                                     &#10003;
                                 </small>
                             </b-btn>
@@ -178,7 +186,7 @@
                         <b-form-group>
                             <label class="is-block text-center" for="pauseDuration">Pause duration between sets (2.5-8s)</label>
                             <h5 class="text-center">
-                                {{ pauseDuration }} s
+                                {{ pauseDuration / 1000 }} s
                             </h5>
                             <b-form-input v-model="pauseDuration" type="range" class="slider-input" min="2.5" max="8" step=".5"></b-form-input>
                         </b-form-group>
@@ -223,7 +231,8 @@ export default {
             soundActive: true,
             breathInSound,
             breathOutSound,
-            chimesActive: true,
+            lowChimeActive: true,
+            highChimeActive: true,
             chimeLow,
             chimeHigh,
             voiceActive: false,
@@ -272,7 +281,7 @@ export default {
             deepBreathTime: 0,
             deepHoldAmount: 15,
             breathTime: 3500,
-            pauseDuration: 2.5,
+            pauseDuration: 2500,
             // stopwatch
             elapsedTime: 0,
             timer: undefined,
@@ -388,20 +397,24 @@ export default {
             }
         },
         // Chimes
-        toggleChimes() {
-            this.chimesActive = !this.chimesActive
-            console.log(this.chimesActive)
+        toggleLowChime() {
+            this.lowChimeActive = !this.lowChimeActive
+            console.log(this.lowChimeActive)
+        },
+        toggleHighChime() {
+            this.highChimeActive = !this.highChimeActive
+            console.log(this.highChimeActive)
         },
         playLowChime() {
-            if ( this.round.phase === this.phases[1] && this.chimesActive === true ) {
+            if ( this.round.phase === this.phases[0] && this.lowChimeActive === true ) {
                 const chimeLow = new Audio(this.chimeLow)
                 chimeLow.play()
                 console.log('playing low chime')
             }
         },
         playHighChime() {
-            if ( this.round.phase === this.phases[0] && this.chimesActive === true ) {
-                const chimeHigh = new Audio(this.chimeHigh)
+            const chimeHigh = new Audio(this.chimeHigh)
+            if ( this.round.phase === this.phases[1] && this.highChimeActive === true ) {
                 chimeHigh.play()
                 console.log('playing high chime')
             }
@@ -526,7 +539,7 @@ export default {
                 // start a new round
                 setTimeout(() => {
                     this.breathCyclePhase()
-                }, this.pauseDuration * 1000)
+                }, this.pauseDuration)
             }
         },
         // Breathing cycle method
@@ -542,8 +555,8 @@ export default {
                 // play sound
                 this.playSounds()
                 // play high chimes with last 3 breaths
-                if ( this.breathCycles > this.cycleAmount - 1 ) {
-                    this.playHighChime()
+                if ( this.breathCycles === this.cycleAmount - 2 ) {
+                    this.playLowChime()
                 }
                 // cancel function
                 setTimeout(() => {
@@ -561,12 +574,13 @@ export default {
         // Breath hold cycle methods (stopwatch methods)
         startStopwatch() {
             this.timer = undefined
+            this.chimeTimer = 10000;
             this.timer = setInterval(() => {
                 this.elapsedTime += 1000
                 console.log('checking speed', this.formattedElapsedTime)
                 // play chimes
-                if ( this.chimesActive === true && ( this.elapsedTime % 60000 === 0 ) ) {
-                    this.playLowChime()
+                if (  this.elapsedTime % this.chimeTimer === 0 ) {
+                    this.playHighChime()
                 }
             }, 1000)
         },
@@ -584,9 +598,6 @@ export default {
                 this.smallPausePhase()
                 // return;
             }
-            // if ( this.deepBreathTime === 1 ) {
-            //     this.playHighChime()
-            // }
             if( this.round.phase === 'deepBreath' ) {
                 // breath hold
                 setTimeout(() => {
