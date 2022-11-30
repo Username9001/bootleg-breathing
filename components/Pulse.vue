@@ -576,7 +576,7 @@ export default {
             this.timer = undefined
             this.chimeTimer = 10000;
             this.timer = setInterval(() => {
-                this.elapsedTime += 1000
+                this.elapsedTime += 60000
                 console.log('checking speed', this.formattedElapsedTime)
                 // play chimes
                 if (  this.elapsedTime % this.chimeTimer === 0 ) {
